@@ -1,0 +1,1020 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"cir",
+				"circshift\t(Q3_35.m)"
+			],
+			[
+				"RE",
+				"RECEIVE"
+			],
+			[
+				"的",
+				"的虚部\t(P3_1_3.m.dump)"
+			],
+			[
+				"kashimoto",
+				"kashimotoxiang"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/C/Users/kashi/Desktop/2.txt.dump",
+			"settings":
+			{
+				"buffer_size": 1175,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "html/js/config.js",
+			"settings":
+			{
+				"buffer_size": 1719,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/C/Users/kashi/Desktop/1.txt.dump",
+			"settings":
+			{
+				"buffer_size": 1216,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 156.0,
+		"last_filter": "install",
+		"selected_items":
+		[
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"merge",
+				"Sublimerge: Compare to View..."
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"latex",
+				"LaTeXTools: View PDF"
+			],
+			[
+				"package",
+				"Package Control: Remove Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"boxe",
+				"Boxy Theme: Environment"
+			],
+			[
+				"Set Syntax",
+				"Set Syntax: Assembly x86 (MASM compatible)"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"packe",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: remove pa",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"pc",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 510.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"git clone https://github.com/buymeasoda/soda-theme/ \"Theme - Soda\"",
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/html",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/html/.idea",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/html/css",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/html/js",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/server",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/server/server"
+	],
+	"file_history":
+	[
+		"/C/WINDOWS/System32/\tint ret = false;\r\n",
+		"/C/Users/kashi/Desktop/2.txt",
+		"/D/02Download/chat-example-master/index.js",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/html/js/config.js",
+		"/D/02Download/chat-example-master/index.html",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/html/js/websocket.js",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/html/js/timer.js",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/html/js/go.js",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/html/js/play.js",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/html/index.html",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/html/css/docs - 副本.css",
+		"/D/Documents/Gaze-Sense/src/server/server.cpp.dump",
+		"/D/Documents/Gaze-Sense/src/server/server.cpp",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/server/server/server.cpp",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/参考.txt",
+		"/C/WINDOWS/System32/clock",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/.gitignore",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/server/server/process.h.dump",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/html/css/style.css",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/register/index.html",
+		"/D/02Download/201412221746/index.html",
+		"/D/02Download/jiaoben4898/timer.css.dump",
+		"/C/WINDOWS/System32/  z-index=1;\r\n",
+		"/D/02Download/jiaoben4898/index.html",
+		"/D/02Download/jiaoben4898/timer.js.dump",
+		"/D/02Download/jiaoben4898/timer.js",
+		"/D/02Download/jiaoben4898/timer.css",
+		"/D/Documents/Tencent Files/824061389/FileRecv/html/index.html",
+		"/D/Documents/Tencent Files/824061389/FileRecv/html/css/style.css",
+		"/D/02Download/bootstrap登录注册页面/css/font-awesome.min.css",
+		"/D/02Download/bootstrap登录注册页面/bootstrap/css/bootstrap.css",
+		"/D/02Download/bootstrap登录注册页面/bootstrap/css/bootstrap.min.css",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/register/js/main.js",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/html/css/docs.css",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/register/js/jquery.validate.min.js.dump",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/register/js/jquery.validate.min.js",
+		"/D/02Download/bootstrap登录注册页面/index.html",
+		"/D/02Download/bootstrap登录注册页面/js/main - 副本.js",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/1.sublime-project",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/201610111542/index.html",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/201610111542/css/htmleaf-demo.css",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/html/style.css",
+		"/D/02Download/201610111542/index.html",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/html/bootstrap/css/bootstrap.min.css",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/html/bootstrap/css/bootstrap.css",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/nixBoard-master/play.js",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/html/background.js",
+		"/C/Users/kashi/Desktop/listening.txt",
+		"/D/Documents/Gaze-Sense/src/chrome_extension/content.js",
+		"/D/Documents/Gaze-Sense/src/chrome_extension/popup.js",
+		"/D/Documents/03STITP/STITP/Chrome_Extends/popup.js",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/html2/background.js",
+		"/D/Documents/Gaze-Sense/src/server/process.cpp.dump",
+		"/D/Documents/Gaze-Sense/src/server/process.cpp",
+		"/C/Users/kashi/Desktop/reading.txt",
+		"/C/Users/kashi/Desktop/temp.txt",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/Project1/html/popup.js",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/Project1/server/Project1/Project1.vcxproj",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/Project1/server/server.cpp",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/Project1/server/echo_handler.hpp",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/Project1/server/resource.h",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/Project1/server/process.h",
+		"/C/Users/kashi/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/Startup/start.bat",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/server/echo_handler.hpp",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/server/process.cpp.dump",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/server/process.h",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/server/resource.h",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/Project1/server/process.cpp.dump",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/server/server.cpp.dump",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/server/server.cpp",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/WEIQI/server/process.cpp",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/软件设计/Project1/server/process.cpp",
+		"/C/Users/kashi/Dropbox/06托福/写作/test.txt",
+		"/C/Users/kashi/Dropbox/06托福/写作/origin.txt",
+		"/C/Users/kashi/Desktop/exportcsv.csv",
+		"/C/Users/kashi/Desktop/anki.txt",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/mp3/歌词处理.py",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/听力生词/歌词处理.py",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/听力生词/听力生词.lrc",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/听力生词/歌词处理.bat.dump",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/听力生词/歌词处理.bat",
+		"/C/WINDOWS/system32/它的意思就是把某一件事的情况告诉有关的人。;",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/txt/听力生词.txt",
+		"/C/Users/kashi/Dropbox/06托福/TPO材料/词频统计/lemmas - 副本.txt",
+		"/C/Users/kashi/Dropbox/06托福/TPO材料/词频统计/Oreading.txt",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/txt/1.txt",
+		"/C/Users/kashi/Dropbox/06托福/03资料/07点课台资料/托福听力100个短语总结.txt",
+		"/C/Users/kashi/Dropbox/06托福/TPO材料/词频统计/Olistening.txt",
+		"/C/Users/kashi/Dropbox/06托福/TPO材料/词频统计/lemmas.txt",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/txt/2.txt",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/txt/3.txt",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/txt/4.txt",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/易混词格式处理.py",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/听力生词/4.lrc.dump",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/听力生词/4.lrc",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/听力生词/1.lrc.dump",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/听力生词/1.lrc",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/听力生词/听力4.lrc.dump",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/听力生词/听力1.lrc.dump",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/听力生词/听力1.lrc",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/听力生词/听力4.lrc",
+		"/C/Users/kashi/Dropbox/06托福/00tools/朗读女/1.txt",
+		"/C/Users/kashi/Dropbox/06托福/TPO材料/词频统计/freeq.py",
+		"/C/Users/kashi/Dropbox/06托福/TPO材料/词频统计/start.bat",
+		"/D/Documents/Tencent Files/824061389/FileRecv/README.md",
+		"/C/Users/kashi/Dropbox/06托福/TPO材料/词频统计/listening.txt",
+		"/E/copy/备份/新建文件夹 (2)/WeChat Files/showlove0925/Msg/ChatMsg.db",
+		"/E/copy/备份/新建文件夹 (2)/WeChat Files/showlove0925/Msg/DeleteMsgs.dat",
+		"/C/Users/kashi/Desktop/词频.xlsx",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/Java/test1/src/TEST_3_2.java",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/Java/test1/src/TEST_3_1.java",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/Java/test1/src/TEST_2_2.java",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/Java/test1/src/TEST_2_1.java",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/Java/test1/src/TEST_1_1.java",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/Java/test1/src/TEST_1_2.java",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/Java/作业/Count.java",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/Java/作业/resume.java",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/Java/test1/src/TEST_1_1.java\r\nC:/Users/kashi/Dropbox/02大学/大三（下）/Java/test1/src/TEST_1_2.java\r\nC:/Users/kashi/Dropbox/02大学/大三（下）/Java/test1/src/TEST_2_1.java\r\nC:/Users/kashi/Dropbox/02大学/大三（下）/Java/test1/src/TEST_2_2.java\r\nC",
+		"/C/Users/kashi/Dropbox/02大学/大三（下）/Java/test1/src/TEST1_2.java",
+		"/C/Users/kashi/Dropbox/06托福/TPO材料/reading/1-36阅读.txt.dump",
+		"/C/Users/kashi/Dropbox/06托福/TPO材料/reading/1-36阅读.txt",
+		"/C/Users/kashi/Dropbox/06托福/TPO材料/reading/49阅读.txt",
+		"/C/Users/kashi/Dropbox/06托福/TPO材料/reading/40-48阅读.txt",
+		"/C/Users/kashi/Dropbox/06托福/TPO材料/listening/combination.txt",
+		"/C/Users/kashi/Dropbox/06托福/TPO材料/listening/新建文本文档.txt",
+		"/C/Users/kashi/Dropbox/06托福/TPO材料/listening/1-34口语.txt",
+		"/C/Users/kashi/Dropbox/06托福/TPO材料/listening/1-34听力.txt",
+		"/C/Users/kashi/Dropbox/06托福/TPO材料/listening/1-34综合写作L.txt"
+	],
+	"find":
+	{
+		"height": 48.0
+	},
+	"find_in_files":
+	{
+		"height": 111.0,
+		"where_history":
+		[
+			"D:\\Documents\\04STITP\\chrome"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"ws",
+			"\\n\\n",
+			"game",
+			"5",
+			"fa-lock",
+			"bs-docs-header",
+			"\\n\\n",
+			"icon-htmleaf-home-outline",
+			"lotus",
+			"barrage",
+			"board",
+			"pan",
+			"{.*\\n",
+			"\\n\\n",
+			"chondrule",
+			"chondrule9",
+			"firn",
+			"abigail",
+			"pearl",
+			"denominator",
+			"earring",
+			"mussel",
+			"socket",
+			"socket\t\t",
+			"socket\t",
+			"[",
+			"“",
+			"”",
+			"\\n ",
+			"…",
+			"\\d．",
+			"\\d\\:",
+			"\\d\\d\\:",
+			"，",
+			"替换",
+			"\\n ",
+			"\\d\\.",
+			"\\d\\d\\.",
+			"\\n\\n",
+			"  ",
+			"；\\n",
+			"vt.",
+			"v.",
+			"adj.",
+			"n.",
+			"\"",
+			"2017-05-01",
+			"corn",
+			"fed",
+			"ultramarine",
+			"banjo",
+			"miller",
+			"humpback",
+			"childcare",
+			"estuary",
+			"meshing",
+			"mash",
+			"mare",
+			"mesh",
+			"skunk",
+			"chlorophyll",
+			"aphid",
+			"touch base",
+			"in a different light",
+			"tongue in cheek",
+			"change of pace",
+			"a change of pace",
+			"go ahead",
+			"A break",
+			"break",
+			"ride",
+			"a ride",
+			"light up",
+			"it never fail",
+			"is ice cold",
+			"    @\\n",
+			"\\n ",
+			"  ",
+			"                   ",
+			"  ",
+			" '",
+			" .",
+			". ",
+			"¡±",
+			"¡°",
+			"\\n\\n",
+			"¡¯",
+			"cuddle",
+			"midsummer",
+			"ingest",
+			"cellulose",
+			"broccoli",
+			"domestication",
+			"pants",
+			"demotic",
+			"touche",
+			"bursa",
+			"ostrich",
+			"ketchup",
+			"aspen",
+			"overhead",
+			"panther",
+			"margarine",
+			"rid",
+			"franc",
+			"franchise",
+			"magpie",
+			"gulf",
+			"scale",
+			"couch",
+			"hippo",
+			"fuzzy",
+			"neither",
+			"geomagnetic",
+			"frill",
+			"scrape",
+			"plover",
+			"acupuncture",
+			"sludge",
+			"sublimation",
+			"locus",
+			"ballerina",
+			"albatross",
+			"cache",
+			"caches",
+			"cache",
+			"cachet",
+			"meme"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"socket",
+			"\\n",
+			"15",
+			"\\n",
+			"boardArr",
+			"board",
+			";\\n",
+			"\\n;",
+			";",
+			"\\n",
+			"@[",
+			"\"",
+			"\\n",
+			"",
+			",",
+			"--",
+			"\\n",
+			"",
+			"\\n",
+			" ",
+			"\\n",
+			"",
+			"@",
+			"",
+			"\\n",
+			" ",
+			"'",
+			".",
+			"",
+			"\\n",
+			"'",
+			" ",
+			" / ",
+			"",
+			" / ",
+			" ",
+			"",
+			"\\n",
+			"",
+			"@ ",
+			"",
+			"@",
+			" ",
+			" / ",
+			"",
+			"\\n",
+			"",
+			"@",
+			"\\n",
+			"",
+			"\\n",
+			"\\n\\n",
+			"\\n",
+			"\\n\\n",
+			"\\n",
+			"Queue2",
+			"Queue1",
+			" ",
+			"",
+			"\\n",
+			"",
+			"&",
+			"",
+			"\"",
+			"",
+			"\\n",
+			"",
+			"视线",
+			"js文件",
+			"视线",
+			"\\n",
+			"",
+			".",
+			"'",
+			"\\n",
+			"'",
+			"\\n",
+			"",
+			"\\n",
+			"",
+			"\\n",
+			" ",
+			"",
+			"\\n",
+			"",
+			"@",
+			"",
+			",",
+			"",
+			"\\n",
+			"",
+			"\\n",
+			"",
+			"\\n",
+			"",
+			";\\n",
+			"",
+			"\\n",
+			".",
+			"\\n",
+			"\\n\\n",
+			"\\n",
+			"\\n\\n",
+			"\\n",
+			"Otsu",
+			"作者",
+			" ",
+			"][",
+			"@[",
+			"",
+			"\\n",
+			"",
+			"@[",
+			"\\n",
+			"@[",
+			"=",
+			"\\n",
+			"Otsu",
+			"\"",
+			"Otsu",
+			"\\n",
+			"。",
+			"，",
+			"\\n[^$]",
+			"\\n",
+			"$",
+			"",
+			"$"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/Users/kashi/Desktop/2.txt.dump",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1175,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								460,
+								460
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										852,
+										853
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/curly_bracket.png",
+										"brackethighlighter.default"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										211,
+										212
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content"
+							],
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "html/js/config.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1719,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1688,
+								1688
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+									"1":
+									[
+										1688,
+										1689
+									]
+								},
+								"icon":
+								{
+									"1":
+									[
+										"Packages/BracketHighlighter/icons/round_bracket.png",
+										"brackethighlighter.default"
+									]
+								},
+								"open":
+								{
+									"1":
+									[
+										1680,
+										1681
+									]
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content"
+							],
+							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 847.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 2,
+					"file": "/C/Users/kashi/Desktop/1.txt.dump",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1216,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1055,
+								1055
+							]
+						],
+						"settings":
+						{
+							"bracket_highlighter.busy": false,
+							"bracket_highlighter.locations":
+							{
+								"close":
+								{
+								},
+								"icon":
+								{
+								},
+								"open":
+								{
+								},
+								"unmatched":
+								{
+								}
+							},
+							"bracket_highlighter.regions":
+							[
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content"
+							],
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 801.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 28.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.5,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Packages/LaTeXTools/LaTeX.sublime-build",
+	"project": "1.sublime-project",
+	"replace":
+	{
+		"height": 90.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"Package Control Messages"
+			],
+			[
+				"package",
+				"Package Control Messages"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 230.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 494.0
+	},
+	"selected_group": 1,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 227.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

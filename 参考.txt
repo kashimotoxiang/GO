@@ -1,0 +1,30 @@
+http://ask.csdn.net/questions/246763
+Cessi 你定义一个结构体，含有两个元素；当做vector的元素不就行了？
+type struct {
+char a[5][5];
+}TYPE;
+
+TYPE t;
+
+vector < TYPE >v;
+
+v.push _ back(t);
+
+
+------------------------------------------------------------------------------------
+http://www.th7.cn/Program/cp/201609/965664.shtml
+http://blog.csdn.net/mfcing/article/details/50118591
+http://www.cnblogs.com/wang7/archive/2012/04/27/2474138.html
+https://segmentfault.com/q/1010000000423649
+http://www.jb51.net/css/412009.html
+http://www.cnblogs.com/xufeiyang/archive/2012/05/09/2491871.html
+http://www.cnblogs.com/lidabo/archive/2012/10/31/2748026.html
+http://www.cppblog.com/wanghaiguang/archive/2013/12/26/205020.html
+https://github.com/open-source-parsers/jsoncpp
+------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------

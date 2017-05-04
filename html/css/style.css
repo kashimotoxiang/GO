@@ -1,0 +1,94 @@
+h1, p {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    width: 100%;
+    background-color: #5bc0de;
+    padding: 20px 0;
+    position: absolute;
+    text-align: center;
+    opacity: 0.92;
+    color: #fff;
+    z-index: 20;
+}
+
+header h1 {
+    padding: 10px 0;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    position: absolute;
+    padding-top: 140px;
+    opacity: 0.8;
+
+}
+
+nav {
+    width: 30%;
+    height: 100%;
+    position: relative;
+    float: left;
+    padding-top: 0px;
+}
+
+.game_info {
+    width: 100%;
+    line-height: 24px;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    font-size: 24px;
+    background: #fff
+}
+
+.my_btn {
+    width: 100%;
+    line-height: 36px;
+    margin-top: 5px;
+}
+
+#go {
+    width: 70%;
+    height: 100%;
+    position: relative;
+    left: 30%;
+    z-index: 100;
+
+}
+
+#board {
+    left: 50%;
+    top: 50%;
+    margin-left: -300px;
+    margin-top: -300px;
+    position: absolute;
+}
+
+#path {
+    left: 50%;
+    top: 50%;
+    margin-left: -300px;
+    margin-top: -300px;
+    position: absolute;
+}
+
+.glass {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: url(1.jpg) no-repeat;
+    background-position: left top;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    -moz-filter: blur(5px);
+    -webkit-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
+}
+
+

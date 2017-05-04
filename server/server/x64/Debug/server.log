@@ -1,0 +1,6 @@
+﻿  process.cpp
+c:\users\kashi\dropbox\02大学\大三（下）\软件设计\weiqi\server\server\process.cpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\users\kashi\dropbox\02大学\大三（下）\软件设计\weiqi\server\server\process.cpp(99): warning C4805: “==”: 在操作中将类型“unsigned __int64”与类型“bool”混合不安全
+c:\users\kashi\dropbox\02大学\大三（下）\软件设计\weiqi\server\server\process.cpp(354): warning C4715: “have_air”: 不是所有的控件路径都返回值
+  server.vcxproj -> C:\Users\kashi\Dropbox\02大学\大三（下）\软件设计\WEIQI\server\x64\Debug\server.exe
+  server.vcxproj -> C:\Users\kashi\Dropbox\02大学\大三（下）\软件设计\WEIQI\server\x64\Debug\server.pdb (Partial PDB)

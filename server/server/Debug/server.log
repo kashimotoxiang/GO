@@ -1,0 +1,8 @@
+﻿  server.cpp
+  Unknown compiler version - please run the configure tests and report the results
+server.obj : error LNK2019: 无法解析的外部符号 "class boost::system::error_category const & __cdecl boost::system::system_category(void)" (?system_category@system@boost@@YAABVerror_category@12@XZ)，该符号在函数 "public: __thiscall boost::system::error_code::error_code(void)" (??0error_code@system@boost@@QAE@XZ) 中被引用
+server.obj : error LNK2019: 无法解析的外部符号 "class boost::system::error_category const & __cdecl boost::system::generic_category(void)" (?generic_category@system@boost@@YAABVerror_category@12@XZ)，该符号在函数 "void __cdecl boost::system::`dynamic initializer for 'errno_ecat''(void)" (??__Eerrno_ecat@system@boost@@YAXXZ) 中被引用
+C:\local\boost_1_62_0\lib64-msvc-14.0\libboost_system-vc140-mt-gd-1_62.lib : warning LNK4272: 库计算机类型“x64”与目标计算机类型“X86”冲突
+C:\local\boost_1_62_0\lib64-msvc-14.0\libboost_date_time-vc140-mt-gd-1_62.lib : warning LNK4272: 库计算机类型“x64”与目标计算机类型“X86”冲突
+C:\local\boost_1_62_0\lib64-msvc-14.0\libboost_regex-vc140-mt-gd-1_62.lib : warning LNK4272: 库计算机类型“x64”与目标计算机类型“X86”冲突
+C:\Users\kashi\Dropbox\02大学\大三（下）\软件设计\WEIQI\server\Debug\server.exe : fatal error LNK1120: 2 个无法解析的外部命令
