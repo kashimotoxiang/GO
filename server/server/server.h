@@ -1,8 +1,26 @@
 #pragma once
-#define _SCL_SECURE_NO_WARNINGS
 #include <websocketpp/config/asio_no_tls.hpp>
 #include <websocketpp/server.hpp>
-#include <iostream>
+#include "register.h"
+#include "process.h"
 
+typedef websocketpp::server<websocketpp::config::asio> server;
+typedef server::message_ptr message_ptr;
 
-void WebSocketInit();
+typedef enum
+{
+	one=1,
+	two,
+}eMode;
+class Server
+{
+public:
+	 int onlineNum;//在线人数
+	 int mode;//单机&双机
+	 map<string, cChessboard*> *ChessBoardMap = nullptr;
+
+	 Server ();
+	 ~Server ();
+};
+
+void WebSocketInit ();

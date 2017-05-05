@@ -45,6 +45,17 @@ nav {
     background: #fff
 }
 
+.name_info {
+    height: 100px;
+    width: 100%;
+    line-height: 24px;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    font-size: 24px;
+    background: #428bca;
+    text-align: center;
+}
+
 .my_btn {
     width: 100%;
     line-height: 36px;

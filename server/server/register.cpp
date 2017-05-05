@@ -1,51 +1,52 @@
 #include "register.h"
-
+#include <string>
+#include <iostream>
 
 Register::Register(){
 	namemap = new map<string, string>;
 	emailmap = new map<string, string>;
-	cout << "Register构造\n";
+	cout << "Register generation" << endl;
 }
 
 Register::~Register(){
 	delete namemap;
 	delete emailmap;
-	cout << "Register析构\n";
+	cout << "Register degeneration" << endl;
 }
 
-int Register::signup(const string name, const string password, const string email){
-	map<string, string, string>::iterator key = namemap->find("name");
-	if (key == namemap->end()){
-		cout << "用户名已被注册\n";
+int Register::signup(const string name, const string password, const string email) const{
+	map<string, string, string>::iterator key = namemap->find(name);
+	if (key != namemap->end()){
+		cout << name << ": user name has been registered" << endl;
 		return NAMEEXIST;
 	}
 
-	key = emailmap->find("email");
-	if (key == namemap->end()){
-		cout << "邮箱已被注册\n";
+	key = emailmap->find(email);
+	if (key != emailmap->end()){
+		cout << email << ": email address has been registered"<<endl;
 		return EMAILEXIST;
 	}
 
 	namemap->insert(make_pair(name, password));
 	emailmap->insert(make_pair(email, password));
 
-	cout << "注册成功\n";
+	cout << name <<": regitered succeed" << endl;
 	return OK;
 
 }
 
-int Register::login(const string name, const string password){
-	map<string, string, string>::iterator key = namemap->find("name");
+int Register::login(const string name, const string password) const{
+	map<string, string, string>::iterator key = namemap->find(name);
 	if (key == namemap->end()){
-		cout << "用户名或邮箱不存在\n";
+		cout << name << ": user name or email address is not existed!" << endl;
 		return NAMEERROR;
 	}
 
 	if (key->second.c_str() != password){
-		cout << "密码错误\n";
+		cout << name << ": passwaord error" << endl;
 		return PASSWORDERROR;
 	}
 
-	cout << "登录成功\n";
+	cout << name <<": log in succeed" << endl;
 	return OK;
 }

@@ -1,32 +1,39 @@
-#include "process.h"
 #include "server.h"
-
-
 //json全家桶
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/date_time.hpp>
 #include <string>
-#include "register.h"
+#include <iostream>
 
 #define WEBSend(x) s->send (hdl, x, sizeof (x), websocketpp::frame::opcode::TEXT)
 
-
-extern cChessboard* Chessboard;
 extern Register myRegister;
+extern Server mServer;
 
 using namespace std;
 using namespace boost::property_tree;
-
-typedef websocketpp::server<websocketpp::config::asio> server;
 using websocketpp::lib::bind;
-// pull out the type of messages sent by our config
-typedef server::message_ptr message_ptr;
-volatile bool gazetracking = false;
 
+//服务器构造
+Server::Server(){
+	onlineNum = 1;
+	mode = one;
+	ChessBoardMap = new map<string, cChessboard*>;
+	cout << "Sever generation" << endl;
+}
+
+Server::~Server(){
+	delete ChessBoardMap;
+	cout << "Server degeneration" << endl;
+}
+
+//websocket设置
+// pull out the type of messages sent by our config
 void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 	string status = "";//状态控制
 	string received = msg->get_payload();
+	cout << endl << "recieve:" << received << endl << endl;
 	//从string中解析json串  
 	istringstream iss;
 	iss.str(received);
@@ -34,68 +41,84 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 	try{
 		read_json(iss, item);
 	}
-	catch (ptree_error& e){
-		cout << "json解析失败\n";
+	catch (ptree_error){
+		cout << "all:failed to read json" << endl;
 		return;
 	}
-	ptree::iterator root_it = item.begin();
+
+	//获取名称
+	string name;
+	try{
+		name = item.get<string>("name");
+	}
+	catch (ptree_error){
+		cout << "play:failed to read room name" << endl;
+		return;
+	}
 
 	//读取 id
-	string key = item.get<string> ("key");;//key ID
+	string key = item.get<string>("key");
 
 	//分类
 	if (key == "start"){
-		if (Chessboard == nullptr)
-			Chessboard = new cChessboard;
 	}
+	//停止
 	else if (key == "stop"){
-		if (Chessboard != nullptr)
-			delete Chessboard;
-	}
-	else if (key == "play"){
-		if (Chessboard != nullptr){//要有棋盘
-			int row, col;
-			try{
-				row = item.get<int>("row");
-				col = item.get<int>("col");
-			}
-			catch (ptree_error& e){
-				cout << "play解析失败\n";
-				return;
-			}
-			//string sROW = received.substr (4, 2);//格式化读取字符串
-			//string sCOL = received.substr (6, 2	);
-			//int row = atoi (sROW.c_str ());//str2num
-			//int col = atoi (sCOL.c_str ());
-			play(row, col);
+		//获取房间指针
+		map<string, cChessboard*>::iterator key = mServer.ChessBoardMap->find(name);
+		if (key == mServer.ChessBoardMap->end()){
+			cout << "stop:room is not exist!" << endl;
+			return;
+		}
 
-			//发送整个棋盘
-			try{
-				s->send(hdl, Chessboard->pan, sizeof (Chessboard->pan), websocketpp::frame::opcode::BINARY);
-			}
-			catch (const error_code& e){
-				cout << "Sending message failed because: " << e
-					<< "(" << e.message() << ")" << endl;
-			}
-		}
-		else{
-			// 没有棋盘
-			WEBSend ("noChessboard");
-		}
+		//销毁房间
+		cChessboard* p = key->second;
+		mServer.ChessBoardMap->erase (key);
+		if (p != nullptr)
+			delete p;
+		else
+			cout << "stop:room is empty!" << endl;
+
 	}
+	//模式切换
+	//else if (key == "mode"){
+	//  int _mode;
+	//  try{
+	//    _mode = item.get<int>("mode");
+	//  }
+	//  catch (ptree_error& e){
+	//    cout  <<  "mode解析失败" << endl;
+	//    return;
+	//  }
+	//  switch (_mode){
+	//  case 1: mode = one;
+	//    break;
+	//  case 2: mode = two;
+	//    break;
+	//  default: break;
+	//  }
+	//}
+
+	//登录
 	else if (key == "login"){
+		//if (mode == one && onlineNum >= 1 || mode == two && onlineNum >= 2)//人数溢出
+		//{
+		//  WEBSend ("OVERFLOW");
+		//  return;
+		//}
 		string name, password;
 		try{
 			name = item.get<string>("name");
 			password = item.get<string>("password");
 		}
-		catch (ptree_error& e){
-			cout << "login解析失败\n";
+		catch (ptree_error){
+			cout << "login:failed to read json" << endl;
 			return;
 		}
 
-		switch (myRegister.login(name, password)){
-		case OK: WEBSend ("OK");
+		int flag = myRegister.login (name, password);
+		switch (flag){
+		case OK: WEBSend ("LOGINOK");
 			break;
 		case NAMEEXIST: WEBSend ("NAMEEXIST");
 			break;
@@ -104,7 +127,16 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 		default: ;
 		}
 
+		if(flag== OK){
+			//创建房间
+			cChessboard* p = new cChessboard ();
+			//压入房间名和房间指针
+			mServer.ChessBoardMap->insert (make_pair (name, p));
+		}
+
 	}
+
+	//注册
 	else if (key == "signup"){
 		string name, password, email;
 		try{
@@ -112,13 +144,18 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 			password = item.get<string>("password");
 			email = item.get<string>("email");
 		}
-		catch (ptree_error& e){
-			cout << "signup解析失败\n";
+		catch (ptree_error){
+			cout << "signup:failed to read json" << endl;
 			return;
 		}
 
-		switch (myRegister.login(name, password)){
-		case OK: WEBSend ("OK");
+		if (name == "" || password == "" || email == ""){
+			WEBSend ("PARAERROR");
+			return ;
+		}			
+
+		switch (myRegister.signup(name, password, email)){
+		case OK: WEBSend ("SIGNUPOK");
 			break;
 		case NAMEERROR: WEBSend ("NAMEERROR");
 			break;
@@ -127,6 +164,79 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 		default: ;
 		}
 	}
+
+	//游戏处理
+	else if (key == "play"){
+		//获取房间指针
+		map<string, cChessboard*>::iterator key = mServer.ChessBoardMap->find(name);
+		if (key == mServer.ChessBoardMap->end()){
+			cout << "stop:room is not exist!" << endl;
+			return;
+
+		}
+		cChessboard* Chessboard = key->second;
+
+		//单机版
+		if (mServer.mode == one && mServer.onlineNum == 1){
+			if (Chessboard != nullptr){//要有棋盘
+				int row, col;
+				try{
+					row = item.get<int>("row");
+					col = item.get<int>("col");
+				}
+				catch (ptree_error){
+					cout << "play:failed to read json" << endl;
+					return;
+				}
+				//棋盘处理
+				play(row, col, Chessboard);
+				//发送整个棋盘
+				try{
+					s->send(hdl, Chessboard->pan, sizeof (Chessboard->pan), websocketpp::frame::opcode::BINARY);
+				}
+				catch (const error_code& e){
+					cout << "Sending message failed because: " << e << "(" << e.message() << ")" << endl;
+				}
+			}
+			else{
+				// 没有棋盘
+				WEBSend ("noChessboard");
+			}
+		}
+		////双人
+		//else if (mode == two && onlineNum == 2)
+		//{
+		//  if (Chessboard != nullptr){//要有棋盘
+		//    int row, col;
+		//    try{
+		//      row = item.get<int>("row");
+		//      col = item.get<int>("col");
+		//    }
+		//    catch (ptree_error& e){
+		//      cout  <<  "play解析失败" << endl;
+		//      return;
+		//    }
+		//    //棋盘处理
+		//    play(row, col);
+		//    //发送整个棋盘
+		//    try{
+		//      s->send(hdl, Chessboard->pan, sizeof (Chessboard->pan), websocketpp::frame::opcode::BINARY);
+		//    }
+		//    catch (const error_code& e){
+		//      cout  <<  "Sending message failed because: "  <<  e  <<  "("  <<  e.message()  <<  ")"  <<  endl;
+		//    }
+		//  }
+		//  else{
+		//    // 没有棋盘
+		//    WEBSend ("noChessboard");
+		//  }
+		//}
+		//else {
+		//  WEBSend ("PeopleNumError");
+		//  return;
+		//}
+	}
+
 }
 
 void WebSocketInit(){

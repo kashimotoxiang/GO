@@ -2,22 +2,20 @@
 
 using namespace std;
 
-cChessboard* Chessboard;
+bool is_jie(int row, int col, VECTORINT2* dead_body, cChessboard* Chessboard);
+bool can_eat(int row, int col, int color, VECTORINT2* dead_body, cChessboard* Chessboard);
+bool record_dead_body(VECTORINT2* db, cChessboard* Chessboard);
+void clean_dead_body(VECTORINT2* db, cChessboard* Chessboard);
+bool fill_block_have_air(int row, int col, int color, cChessboard* Chessboard);
+bool anti_fill_block_have_air(int color, cChessboard* Chessboard);
+void make_shadow(cChessboard* Chessboard);
+void shadow_to_pan(cChessboard* Chessboard);
+void flood_fill(int row, int col, int color, cChessboard* Chessboard);
+bool have_air(int row, int col, cChessboard* Chessboard);
+bool have_my_people(int row, int col, cChessboard* Chessboard);
+void stone_down(int row, int col, cChessboard* Chessboard);
 
-bool is_jie(int row, int col, VECTORINT2* dead_body);
-bool can_eat(int row, int col, int color, VECTORINT2* dead_body);
-bool record_dead_body(VECTORINT2* db);
-void clean_dead_body(VECTORINT2* db);
-bool fill_block_have_air(int row, int col, int color);
-bool anti_fill_block_have_air(int color);
-void make_shadow();
-void shadow_to_pan();
-void flood_fill(int row, int col, int color);
-bool have_air(int row, int col);
-bool have_my_people(int row, int col);
-void stone_down(int row, int col);
-
-int play(int row, int col){
+int play(int row, int col, cChessboard* Chessboard){
 	bool can_down = false; // 是否可落子
 	tCOLOR color = cWHI; // 白 //棋子颜色
 	if ((*Chessboard).move_count % 2 == 0) { // 未落子前是白
@@ -37,21 +35,21 @@ int play(int row, int col){
 	// 得到将落子的棋子的颜色
 
 
-	if (!have_air(row, col)){
-		if (have_my_people(row, col)){
-			make_shadow();
+	if (!have_air(row, col, Chessboard)){
+		if (have_my_people(row, col, Chessboard)){
+			make_shadow(Chessboard);
 
-			flood_fill(row, col, color);
-			if (fill_block_have_air(row, col, color)){
+			flood_fill(row, col, color, Chessboard);
+			if (fill_block_have_air(row, col, color, Chessboard)){
 				can_down = true;
 				VECTORINT2 dead_body;
-				can_eat(row, col, color, &dead_body);
-				clean_dead_body(&dead_body);
+				can_eat(row, col, color, &dead_body, Chessboard);
+				clean_dead_body(&dead_body, Chessboard);
 			}
 			else{
 				VECTORINT2 dead_body;
-				int cret = can_eat(row, col, color, &dead_body);
-				clean_dead_body(&dead_body);
+				int cret = can_eat(row, col, color, &dead_body, Chessboard);
+				clean_dead_body(&dead_body, Chessboard);
 
 				if (cret){
 					can_down = true;
@@ -64,12 +62,12 @@ int play(int row, int col){
 		}
 		else{
 			VECTORINT2 dead_body;
-			int cret = can_eat(row, col, color, &dead_body);
+			int cret = can_eat(row, col, color, &dead_body, Chessboard);
 
 			// 劫争也应该在此处理，只在此处理？
 			if (cret){
-				if (!is_jie(row, col, &dead_body)){
-					clean_dead_body(&dead_body);
+				if (!is_jie(row, col, &dead_body, Chessboard)){
+					clean_dead_body(&dead_body, Chessboard);
 					can_down = true;
 				}
 				else{
@@ -83,18 +81,18 @@ int play(int row, int col){
 	else{
 		can_down = true;
 		VECTORINT2 dead_body;
-		can_eat(row, col, color, &dead_body);
-		clean_dead_body(&dead_body);
+		can_eat(row, col, color, &dead_body, Chessboard);
+		clean_dead_body(&dead_body, Chessboard);
 	}
 	if (can_down){
-		stone_down(row, col);
+		stone_down(row, col, Chessboard);
 	}
 	return sOK;
 }
 
 // TODO 劫争处理的本质是防止全局同型，基于此，还是要处理连环劫之类的，再说吧
 // 我先看看应氏围棋规则，研究研究
-bool is_jie(int row, int col, VECTORINT2* dead_body){ //是否劫
+bool is_jie(int row, int col, VECTORINT2* dead_body, cChessboard* Chessboard){ //是否劫
 	//只吃了一个？ 希望我对围棋的理解没错，单劫都是只互吃一个。
 	if (dead_body->size() == true){
 		for (int i = 0; i < (*Chessboard).jie.size(); i++){
@@ -116,50 +114,50 @@ bool is_jie(int row, int col, VECTORINT2* dead_body){ //是否劫
 }
 
 /* 能提吃吗？ */
-bool can_eat(int row, int col, int color, VECTORINT2* dead_body){ // color 是当前要落子的颜色
+bool can_eat(int row, int col, int color, VECTORINT2* dead_body, cChessboard* Chessboard){ // color 是当前要落子的颜色
 	int ret = false;
 	int anti_color = cWHI;
 	if (color == cWHI)
 		anti_color = cBLA;
 
 	if (row + 1 <= 19 - 1 && (*Chessboard).pan[row + 1][col] == anti_color){
-		make_shadow();
+		make_shadow(Chessboard);
 		(*Chessboard).shadow[row][col] = color;
-		flood_fill(row + 1, col, anti_color);
-		if (!anti_fill_block_have_air(anti_color)){
+		flood_fill(row + 1, col, anti_color, Chessboard);
+		if (!anti_fill_block_have_air(anti_color, Chessboard)){
 			// 记录下这些cFILL的坐标，以及(row+1,col)，表示可以提吃的对方棋子
 			//alert("提吃: "+(row+1).toString()+","+col.toString());
-			int rret = record_dead_body(dead_body);
+			int rret = record_dead_body(dead_body, Chessboard);
 			ret = ret || rret;
 		}
 
 	}
 	if (row - 1 >= 0 && (*Chessboard).pan[row - 1][col] == anti_color){
-		make_shadow();
+		make_shadow(Chessboard);
 		(*Chessboard).shadow[row][col] = color;
-		flood_fill(row - 1, col, anti_color);
-		if (!anti_fill_block_have_air(anti_color)){
-			int rret = record_dead_body(dead_body);
+		flood_fill(row - 1, col, anti_color, Chessboard);
+		if (!anti_fill_block_have_air(anti_color, Chessboard)){
+			int rret = record_dead_body(dead_body, Chessboard);
 			ret = ret || rret;
 		}
 
 	}
 	if (col + 1 <= 19 - 1 && (*Chessboard).pan[row][col + 1] == anti_color){
-		make_shadow();
+		make_shadow(Chessboard);
 		(*Chessboard).shadow[row][col] = color;
-		flood_fill(row, col + 1, anti_color);
-		if (!anti_fill_block_have_air(anti_color)){
-			int rret = record_dead_body(dead_body);
+		flood_fill(row, col + 1, anti_color, Chessboard);
+		if (!anti_fill_block_have_air(anti_color, Chessboard)){
+			int rret = record_dead_body(dead_body, Chessboard);
 			ret = ret || rret;
 		}
 
 	}
 	if (col - 1 >= 0 && (*Chessboard).pan[row][col - 1] == anti_color){
-		make_shadow();
+		make_shadow(Chessboard);
 		(*Chessboard).shadow[row][col] = color;
-		flood_fill(row, col - 1, anti_color);
-		if (!anti_fill_block_have_air(anti_color)){
-			int rret = record_dead_body(dead_body);
+		flood_fill(row, col - 1, anti_color, Chessboard);
+		if (!anti_fill_block_have_air(anti_color, Chessboard)){
+			int rret = record_dead_body(dead_body, Chessboard);
 			ret = ret || rret;
 		}
 
@@ -167,7 +165,7 @@ bool can_eat(int row, int col, int color, VECTORINT2* dead_body){ // color 是�
 	return ret;
 }
 
-bool record_dead_body(VECTORINT2* db){
+bool record_dead_body(VECTORINT2* db, cChessboard* Chessboard){
 	int ret = false;
 	for (int row = 0; row < (*Chessboard).width; row++){
 		for (int col = 0; col < (*Chessboard).length; col++){
@@ -181,7 +179,7 @@ bool record_dead_body(VECTORINT2* db){
 	return ret;
 }
 
-void clean_dead_body(VECTORINT2* db){
+void clean_dead_body(VECTORINT2* db, cChessboard* Chessboard){
 	int n = 0, m = 0;
 	for (int i = 0; i < (*db).size(); i++){
 		n = (*db)[i].a;
@@ -192,7 +190,7 @@ void clean_dead_body(VECTORINT2* db){
 }
 
 /* 填充的区域周围是否有空 */
-bool fill_block_have_air(int row, int col, int color){
+bool fill_block_have_air(int row, int col, int color, cChessboard* Chessboard){
 	for (int i = 0; i < (*Chessboard).length; i++){
 		for (int j = 0; j < (*Chessboard).width; j++){
 			if (i != row || j != col){
@@ -207,7 +205,7 @@ bool fill_block_have_air(int row, int col, int color){
 }
 
 /* 提吃判断专用 */
-bool anti_fill_block_have_air(int color){
+bool anti_fill_block_have_air(int color, cChessboard* Chessboard){
 	for (int i = 0; i < (*Chessboard).length; i++){
 		for (int j = 0; j < (*Chessboard).width; j++){
 			if ((*Chessboard).shadow[i][j] == cFILL && (*Chessboard).pan[i][j] != color){
@@ -220,7 +218,7 @@ bool anti_fill_block_have_air(int color){
 }
 
 /* 将盘面做个影分身 */
-void make_shadow(){
+void make_shadow(cChessboard* Chessboard){
 	for (int i = 0; i < (*Chessboard).length; i++){
 		for (int j = 0; j < (*Chessboard).width; j++){
 			(*Chessboard).shadow[i][j] = (*Chessboard).pan[i][j];
@@ -228,7 +226,7 @@ void make_shadow(){
 	}
 }
 
-void shadow_to_pan(){
+void shadow_to_pan(cChessboard* Chessboard){
 	for (int i = 0; i < (*Chessboard).length; i++){
 		for (int j = 0; j < (*Chessboard).width; j++){
 			(*Chessboard).pan[i][j] = (*Chessboard).shadow[i][j];
@@ -237,7 +235,7 @@ void shadow_to_pan(){
 }
 
 /* 泛洪填充，只操作影分身 */
-void flood_fill(int row, int col, int color){ // color 为当前要填充的颜色
+void flood_fill(int row, int col, int color, cChessboard* Chessboard){ // color 为当前要填充的颜色
 	if (row < 0 || row > 19 - 1 || col < 0 || col > 19 - 1)
 		return;
 
@@ -247,15 +245,15 @@ void flood_fill(int row, int col, int color){ // color 为当前要填充的颜�
 
 	if ((*Chessboard).shadow[row][col] != anti_color && (*Chessboard).shadow[row][col] != cFILL){ // 非color颜色，且未被填充
 		(*Chessboard).shadow[row][col] = cFILL; // 表示已被填充
-		flood_fill(row + 1, col, color);
-		flood_fill(row - 1, col, color);
-		flood_fill(row, col + 1, color);
-		flood_fill(row, col - 1, color);
+		flood_fill(row + 1, col, color, Chessboard);
+		flood_fill(row - 1, col, color, Chessboard);
+		flood_fill(row, col + 1, color, Chessboard);
+		flood_fill(row, col - 1, color, Chessboard);
 	}
 }
 
 /* 坐标周围4交叉点有气否？ */
-bool have_air (int row, int col) {
+bool have_air (int row, int col, cChessboard* Chessboard) {
 	if (row > 0 && row < 19 - 1 && col > 0 && row < 19 - 1) { //非边角 1->17(0->18)
 		if ((*Chessboard).pan[row + 1][col] !=cEmp &&
 			(*Chessboard).pan[row - 1][col] !=cEmp &&
@@ -354,7 +352,7 @@ bool have_air (int row, int col) {
 }
 
 /* 坐标周围是否有我方的棋子 */
-bool have_my_people (int row, int col) { //FIXME 边角没有处理呢
+bool have_my_people (int row, int col, cChessboard* Chessboard) { //FIXME 边角没有处理呢
 	if (row > 0 && row < 19 - 1 && col > 0 && row < 19 - 1) { //非边角 1->17(0->18)
 		if ((*Chessboard).move_count % 2 ==  0) { //未落子前是白
 			if ((*Chessboard).pan[row + 1][col] ==  1 ||
@@ -517,7 +515,7 @@ bool have_my_people (int row, int col) { //FIXME 边角没有处理呢
 
 
 // 真正落子
-void stone_down(int row, int col){
+void stone_down(int row, int col, cChessboard* Chessboard){
 	if ((*Chessboard).move_count % 2 == 0){ //未落子前是白
 		(*Chessboard).pan[row][col] = cBLA; //就放黑
 	}

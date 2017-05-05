@@ -48,4 +48,4 @@ public:
 };
 
 
-int play(int row, int col);
+int play(int row, int col, cChessboard* Chessboard);

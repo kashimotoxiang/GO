@@ -23,6 +23,6 @@ private:
 public:
 	Register();
 	~Register();
-	int signup(const string name, const string password, const string email);
-	int login(const string name, const string password);
+	int signup(const string name, const string password, const string email) const;
+	int login(const string name, const string password) const;
 };

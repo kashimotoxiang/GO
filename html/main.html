@@ -1,0 +1,47 @@
+<html lang="zh-CN">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Go</title>
+	<link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet" type="m_text/css">
+	<script src="./m_js/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="./m_css/style.css" />
+	<script type="text/javascript" src="./m_js/go.js"></script>
+	<script type="text/javascript" src="./m_js/play.js"></script>
+	<script type="text/javascript" src="./m_js/websocket.js"></script>
+	<script type="text/javascript" src="./m_js/config.js"></script>
+	<script type="text/javascript" src="./m_js/timer.js"></script>
+	<script type="text/javascript" src="./m_js/jquery.cookie.js"></script>
+</head>
+
+<body>
+
+	<div class="glass">
+	</div>
+
+	<header>
+		<h1>围棋GO对战平台</h1>
+		<p>kashimotoxiang/李雨翔 B14020318</p>
+		<a href="https://github.com/kashimotoxiang" target="_blank">github:https://github.com/kashimotoxiang</a>
+	</header>
+
+	<main>
+		<nav style="border-right:2px solid black;">
+			<article id="game_info">
+				<input class="name_info" type="text" id="welcome" readonly=readonly value="欢迎" />
+				<input class="game_info" type="text" id="oTxt" readonly=readonly value="时间：" />
+				<input class="game_info" type="text" id="step" readonly=readonly value="步数：" />
+			</article>
+			<button id="start_connect" class="btn btn-default btn-lg my_btn">开始连接</button>
+			<button id="oStart" class="btn btn-primary btn-lg my_btn" onclick="clock()">开始计时</button>
+		</nav>
+
+		<div id="go">
+			<canvas id="board" width="600" height="600"></canvas>
+			<canvas id="path" width="600" height="600"></canvas>
+		</div>
+	</main>
+</body>
+
+</html>
