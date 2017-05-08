@@ -38,27 +38,14 @@ cChessboard::cChessboard (){
 cChessboard::~cChessboard (){
 }
 
-
 int play(int row, int col, cChessboard* Chessboard){
 	bool can_down = false; // 是否可落子
 	tCOLOR color = cWHI; // 白 //棋子颜色
 	if ((*Chessboard).move_count % 2 == 0) { // 未落子前是白
 		color = cBLA;
 	}
-	//TODO 这部分放到js里面
-	//if (row < 0 || row > 19 || col < 0 || col > 19){
-	//	//alert("index error....");
-	//	return;
-	//}
-	//// 处理已有棋子在此
-	//if ((*Chessboard).pan[row][col] != 0){
-	//	//alert("此处已有棋子！");
-	//	return;
-	//}
 
 	// 得到将落子的棋子的颜色
-
-
 	if (!have_air(row, col, Chessboard)){
 		if (have_my_people(row, col, Chessboard)){
 			make_shadow(Chessboard);
@@ -79,7 +66,6 @@ int play(int row, int col, cChessboard* Chessboard){
 					can_down = true;
 				}
 				else{
-					//alert("无气，不能落子！！");
 					return sWUQI;
 				}
 			}
@@ -114,8 +100,7 @@ int play(int row, int col, cChessboard* Chessboard){
 	return sOK;
 }
 
-// TODO 劫争处理的本质是防止全局同型，基于此，还是要处理连环劫之类的，再说吧
-// 我先看看应氏围棋规则，研究研究
+// 劫争处理
 bool is_jie(int row, int col, VECTORINT2* dead_body, cChessboard* Chessboard){ //是否劫
 	//只吃了一个？ 希望我对围棋的理解没错，单劫都是只互吃一个。
 	if (dead_body->size() == true){
@@ -137,7 +122,6 @@ bool is_jie(int row, int col, VECTORINT2* dead_body, cChessboard* Chessboard){ /
 	return false;
 }
 
-/* 能提吃吗？ */
 bool can_eat(int row, int col, int color, VECTORINT2* dead_body, cChessboard* Chessboard){ // color 是当前要落子的颜色
 	int ret = false;
 	int anti_color = cWHI;
@@ -149,8 +133,7 @@ bool can_eat(int row, int col, int color, VECTORINT2* dead_body, cChessboard* Ch
 		(*Chessboard).shadow[row][col] = color;
 		flood_fill(row + 1, col, anti_color, Chessboard);
 		if (!anti_fill_block_have_air(anti_color, Chessboard)){
-			// 记录下这些cFILL的坐标，以及(row+1,col)，表示可以提吃的对方棋子
-			//alert("提吃: "+(row+1).toString()+","+col.toString());
+			// 记录下这些cFILL的坐标，以及(row+1,col)，表示可以吃的对方棋子
 			int rret = record_dead_body(dead_body, Chessboard);
 			ret = ret || rret;
 		}
@@ -195,8 +178,7 @@ bool record_dead_body(VECTORINT2* db, cChessboard* Chessboard){
 		for (int col = (*Chessboard).lengthBegin; col < (*Chessboard).lengthEnd; col++){
 			if ((*Chessboard).shadow[row][col] == cFILL){
 				(*db).push_back({row, col});
-				ret = true; // it's true have dead body
-				//alert("DEAD: "+(row).toString()+","+col.toString());
+				ret = true; 
 			}
 		}
 	}
@@ -209,7 +191,6 @@ void clean_dead_body(VECTORINT2* db, cChessboard* Chessboard){
 		n = (*db)[i].a;
 		m = (*db)[i].b;
 		(*Chessboard).pan[n][m] = 0;
-		//alert("OUT: "+(db[i][0]).toString()+","+(db[i][1]).toString());
 	}
 }
 
@@ -224,7 +205,6 @@ bool fill_block_have_air(int row, int col, int color, cChessboard* Chessboard){
 			}
 		}
 	}
-	//alert("fill block 无气！！！");
 	return false;
 }
 
@@ -237,7 +217,6 @@ bool anti_fill_block_have_air(int color, cChessboard* Chessboard){
 			}
 		}
 	}
-	//alert("anti fill block 无气！！！");
 	return false; //死
 }
 
@@ -286,11 +265,9 @@ bool have_air (int row, int col, cChessboard* Chessboard) {
 			(*Chessboard).pan[row - 1][col] !=cEmp &&
 			(*Chessboard).pan[row][col + 1] !=cEmp &&
 			(*Chessboard).pan[row][col - 1] !=cEmp) {
-			//alert("have no air");
 			return false;
 		}
 		else {
-			//alert("have air");
 			return true;
 		}
 
@@ -303,7 +280,6 @@ bool have_my_people (int row, int col, cChessboard* Chessboard) { //FIXME 边角
 				(*Chessboard).pan[row - 1][col] ==  cBLA ||
 				(*Chessboard).pan[row][col + 1] ==  cBLA ||
 				(*Chessboard).pan[row][col - 1] ==  cBLA) {
-				//alert("have my people");
 				return true;
 			}
 		}
@@ -312,7 +288,6 @@ bool have_my_people (int row, int col, cChessboard* Chessboard) { //FIXME 边角
 				(*Chessboard).pan[row - 1][col] ==  cWHI ||
 				(*Chessboard).pan[row][col + 1] ==  cWHI ||
 				(*Chessboard).pan[row][col - 1] ==  cWHI) {
-				//alert("have my people");
 				return true;
 			}
 		}
