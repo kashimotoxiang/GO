@@ -5,6 +5,8 @@
 #include <boost/date_time.hpp>
 #include <string>
 #include <iostream>
+//console 颜色
+#include "ConsoleColor.h"
 
 #define WEBSend(x) s->send (hdl, x, sizeof (x), websocketpp::frame::opcode::TEXT)
 
@@ -20,12 +22,12 @@ Server::Server(){
 	onlineNum = 1;
 	mode = one;
 	ChessBoardMap = new map<string, cChessboard*>;
-	cout << "Sever generation" << endl;
+	cout << blue << "Sever generation" << white<< endl;
 }
 
 Server::~Server(){
 	delete ChessBoardMap;
-	cout << "Server degeneration" << endl;
+	cout << blue << "Server degeneration" << white<< endl;
 }
 
 //websocket设置
@@ -33,7 +35,7 @@ Server::~Server(){
 void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 	string status = "";//状态控制
 	string received = msg->get_payload();
-	cout << endl << "recieve:" << received << endl << endl;
+	cout << endl << green << "recieve:" << received << white<< endl << endl;
 	//从string中解析json串  
 	istringstream iss;
 	iss.str(received);
@@ -42,7 +44,7 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 		read_json(iss, item);
 	}
 	catch (ptree_error){
-		cout << "all:failed to read json" << endl;
+		cout << red << "all:failed to read json" << white<< endl;
 		return;
 	}
 
@@ -52,7 +54,7 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 		name = item.get<string>("name");
 	}
 	catch (ptree_error){
-		cout << "play:failed to read room name" << endl;
+		cout << red << "play:failed to read room name" << white<< endl;
 		return;
 	}
 
@@ -67,7 +69,7 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 		//获取房间指针
 		map<string, cChessboard*>::iterator key = mServer.ChessBoardMap->find(name);
 		if (key == mServer.ChessBoardMap->end()){
-			cout << "stop:room is not exist!" << endl;
+			cout << yellow << "stop:room is not exist!" << white<< endl;
 			return;
 		}
 
@@ -77,7 +79,7 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 		if (p != nullptr)
 			delete p;
 		else
-			cout << "stop:room is empty!" << endl;
+			cout << yellow << "stop:room is empty!" << white<< endl;
 
 	}
 	//模式切换
@@ -87,7 +89,7 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 	//    _mode = item.get<int>("mode");
 	//  }
 	//  catch (ptree_error& e){
-	//    cout  <<  "mode解析失败" << endl;
+	//    cout  <<  "mode解析失败" << white<< endl;
 	//    return;
 	//  }
 	//  switch (_mode){
@@ -106,13 +108,12 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 		//  WEBSend ("OVERFLOW");
 		//  return;
 		//}
-		string name, password;
+		string password;
 		try{
-			name = item.get<string>("name");
 			password = item.get<string>("password");
 		}
 		catch (ptree_error){
-			cout << "login:failed to read json" << endl;
+			cout << red << "login:failed to read json" << white<< endl;
 			return;
 		}
 
@@ -120,9 +121,9 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 		switch (flag){
 		case OK: WEBSend ("LOGINOK");
 			break;
-		case NAMEEXIST: WEBSend ("NAMEEXIST");
+		case NAMEERROR: WEBSend ("NAMEERROR");
 			break;
-		case EMAILEXIST: WEBSend ("EMAILEXIST");
+		case PASSWORDERROR: WEBSend ("PASSWORDERROR");
 			break;
 		default: ;
 		}
@@ -138,14 +139,13 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 
 	//注册
 	else if (key == "signup"){
-		string name, password, email;
+		string  password, email;
 		try{
-			name = item.get<string>("name");
 			password = item.get<string>("password");
 			email = item.get<string>("email");
 		}
 		catch (ptree_error){
-			cout << "signup:failed to read json" << endl;
+			cout << red << "signup:failed to read json" << white<< endl;
 			return;
 		}
 
@@ -157,9 +157,9 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 		switch (myRegister.signup(name, password, email)){
 		case OK: WEBSend ("SIGNUPOK");
 			break;
-		case NAMEERROR: WEBSend ("NAMEERROR");
+		case NAMEEXIST: WEBSend ("NAMEEXIST");
 			break;
-		case PASSWORDERROR: WEBSend ("PASSWORDERROR");
+		case EMAILEXIST: WEBSend ("EMAILEXIST");
 			break;
 		default: ;
 		}
@@ -170,7 +170,7 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 		//获取房间指针
 		map<string, cChessboard*>::iterator key = mServer.ChessBoardMap->find(name);
 		if (key == mServer.ChessBoardMap->end()){
-			cout << "stop:room is not exist!" << endl;
+			cout << yellow << "play:room is not exist!" << white<< endl;
 			return;
 
 		}
@@ -185,17 +185,33 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 					col = item.get<int>("col");
 				}
 				catch (ptree_error){
-					cout << "play:failed to read json" << endl;
+					cout << red << "play:failed to read json" << white<< endl;
 					return;
 				}
 				//棋盘处理
 				play(row, col, Chessboard);
 				//发送整个棋盘
 				try{
-					s->send(hdl, Chessboard->pan, sizeof (Chessboard->pan), websocketpp::frame::opcode::BINARY);
+					//创建消息对象
+					mMessage p;
+
+					//name转换
+					int i = 0;
+					for (;i<name.length();i++)
+					  p.name[i] = name[i];
+					for(; i<sizeof (p.name) / sizeof (p.name[0]); i++)
+						p.name[i] = -1;
+
+					//棋盘转换
+					for(int i=0;i<sizeof (Chessboard->pan)/sizeof (Chessboard->pan[0]) ;i++)
+						for(int j=0;j<sizeof (Chessboard->pan[0])/sizeof (Chessboard->pan[0][0]);j++)
+							p.pan[i][j] = Chessboard->pan[i][j];
+
+					//发送消息
+					s->send(hdl, &p, sizeof (p), websocketpp::frame::opcode::BINARY);
 				}
 				catch (const error_code& e){
-					cout << "Sending message failed because: " << e << "(" << e.message() << ")" << endl;
+					cout << red << "Sending message failed because: " << e << "(" << e.message() << ")" << white<< endl;
 				}
 			}
 			else{
@@ -213,7 +229,7 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 		//      col = item.get<int>("col");
 		//    }
 		//    catch (ptree_error& e){
-		//      cout  <<  "play解析失败" << endl;
+		//      cout  <<  "play解析失败" << white<< endl;
 		//      return;
 		//    }
 		//    //棋盘处理
@@ -264,9 +280,9 @@ void WebSocketInit(){
 		echo_server.run();
 	}
 	catch (websocketpp::exception const& e){
-		cout << e.what() << endl;
+		cout << white << e.what() << white<< endl;
 	}
 	catch (...){
-		cout << "other exception" << endl;
+		cout << white << "other exception" << white<< endl;
 	}
 }

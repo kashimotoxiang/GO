@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConsoleColor.h" />
     <ClInclude Include="process.h" />
     <ClInclude Include="server.h" />
     <ClInclude Include="register.h" />

@@ -19,11 +19,34 @@ function websocketInit() {
     ws.onmessage = function (event) {
         if (event.data instanceof ArrayBuffer) {//验证格式是否正确
             var rArray = new Int32Array(event.data); //Int32Array cannot be changed if created
-            pan = rArray;
-            showPan();
             console.log(rArray);
+
+            //验证广播名字
+            var i_name = rArray.subarray(0, 30);
+            var s_name = [];
+
+            for (var i in i_name) {
+                if (i_name[i] !== -1) {
+                    var code = String.fromCharCode(i_name[i]);
+                    s_name.push(code);
+                }
+            }
+            s_name = s_name.join("");
+
+            var _pan = rArray.subarray(30);
+
+            if (s_name === g_name) {
+                pan = _pan;
+                showPan();
+                console.log("is me");
+            }
+            else {
+                console.log("not me");
+            }
         }
-        else console.log("Receive:" + event.data);
+        else {
+            console.log("Receive:" + event.data);
+        }
         $("#step").val("步数：" + move_count);//显示步数
     };
 

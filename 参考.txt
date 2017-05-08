@@ -21,6 +21,8 @@ http://www.cnblogs.com/xufeiyang/archive/2012/05/09/2491871.html
 http://www.cnblogs.com/lidabo/archive/2012/10/31/2748026.html
 http://www.cppblog.com/wanghaiguang/archive/2013/12/26/205020.html
 https://github.com/open-source-parsers/jsoncpp
+http://blog.csdn.net/wu_nan_nan/article/details/51741030
+https://msdn.microsoft.com/zh-cn/library/br230741(v=vs.94).aspx
 ------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------------------------

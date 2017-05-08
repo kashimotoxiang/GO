@@ -12,6 +12,13 @@ typedef enum
 	one=1,
 	two,
 }eMode;
+
+typedef struct
+{
+	int name[30];//前30个为名字
+	int pan[19][19];
+}mMessage;
+
 class Server
 {
 public:

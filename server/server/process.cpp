@@ -15,6 +15,17 @@ bool have_air(int row, int col, cChessboard* Chessboard);
 bool have_my_people(int row, int col, cChessboard* Chessboard);
 void stone_down(int row, int col, cChessboard* Chessboard);
 
+//cChessboard::cChessboard (){
+//	 pan = new int[19][19];
+//	 shadow = new int[19][19];
+//
+//}
+//cChessboard::~cChessboard (){
+//	delete pan;
+//	delete shadow;
+//}
+
+
 int play(int row, int col, cChessboard* Chessboard){
 	bool can_down = false; // 是否可落子
 	tCOLOR color = cWHI; // 白 //棋子颜色
