@@ -9,7 +9,7 @@ function Button1() {
                 start_button.innerHTML = "开始游戏";
                 var myJSON = JSON.stringify({ "key": "stop", "name": g_name });
                 sendMessage(myJSON);
-                timerEnd();
+                timerShut();
                 // websocketShutdown();//停止
                 start_flag = false;
             } else {
@@ -23,6 +23,7 @@ function Button1() {
         }
     }
 }
+
 function getCookie(cname) {
     var name = cname + "=";
     var ca = document.cookie.split(';');

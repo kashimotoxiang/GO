@@ -63,6 +63,35 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 
 	//分类
 	if (key == "start"){
+		//创建房间
+		cChessboard* p = new cChessboard ();
+		//压入房间名和房间指针
+		mServer.ChessBoardMap->insert (make_pair (name, p));
+
+		//发送整个棋盘
+		try {
+			//创建消息对象
+			mMessage mp;
+
+			//name转换
+			int i = 0;
+			for (; i<name.length (); i++)
+				mp.name[i] = name[i];
+			for (; i<sizeof (mp.name) / sizeof (mp.name[0]); i++)
+				mp.name[i] = -1;
+
+			//棋盘转换
+			for (int i = (*p).lengthBegin; i<(*p).lengthEnd; i++)
+				for (int j = (*p).widthBegin; j<(*p).widthEnd; j++)
+					mp.pan[i - (*p).lengthBegin][j - (*p).widthBegin] = p->pan[i][j];
+
+			//发送消息
+			s->send (hdl, &mp, sizeof (mp), websocketpp::frame::opcode::BINARY);
+		}
+		catch (const error_code& e) {
+			cout << red << "Sending message failed because: " << e << "(" << e.message () << ")" << white << endl;
+		}
+
 	}
 	//停止
 	else if (key == "stop"){
@@ -128,12 +157,12 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 		default: ;
 		}
 
-		if(flag== OK){
-			//创建房间
-			cChessboard* p = new cChessboard ();
-			//压入房间名和房间指针
-			mServer.ChessBoardMap->insert (make_pair (name, p));
-		}
+		//if(flag== OK){
+		//	//创建房间
+		//	cChessboard* p = new cChessboard ();
+		//	//压入房间名和房间指针
+		//	mServer.ChessBoardMap->insert (make_pair (name, p));
+		//}
 
 	}
 
@@ -189,7 +218,7 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 					return;
 				}
 				//棋盘处理
-				play(row, col, Chessboard);
+				play(row+1, col+1, Chessboard);
 				//发送整个棋盘
 				try{
 					//创建消息对象
@@ -203,9 +232,9 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 						p.name[i] = -1;
 
 					//棋盘转换
-					for(int i=0;i<sizeof (Chessboard->pan)/sizeof (Chessboard->pan[0]) ;i++)
-						for(int j=0;j<sizeof (Chessboard->pan[0])/sizeof (Chessboard->pan[0][0]);j++)
-							p.pan[i][j] = Chessboard->pan[i][j];
+					for(int i= (*Chessboard).lengthBegin;i<(*Chessboard).lengthEnd;i++)
+						for(int j= (*Chessboard).widthBegin;j<(*Chessboard).widthEnd;j++)
+							p.pan[i- (*Chessboard).lengthBegin][j- (*Chessboard).widthBegin] = Chessboard->pan[i][j];
 
 					//发送消息
 					s->send(hdl, &p, sizeof (p), websocketpp::frame::opcode::BINARY);

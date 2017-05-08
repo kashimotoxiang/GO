@@ -11,8 +11,6 @@ function websocketInit() {
     ws.binaryType = "arraybuffer";//set the type of received data:array, the default type is bolb
     ws.onopen = function (event) {
         console.log("Connection Start");
-        myJSON = JSON.stringify({ "key": "start", "name": g_name });
-        sendMessage(myJSON);
         START_FLAG = 1;
     };
 

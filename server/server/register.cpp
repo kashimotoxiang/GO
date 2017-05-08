@@ -38,13 +38,14 @@ int Register::signup(const string name, const string password, const string emai
 }
 
 int Register::login(const string name, const string password) const{
-	map<string, string, string>::iterator key = namemap->find(name);
-	if (key == namemap->end()){
+	map<string, string, string>::iterator key1 = namemap->find(name);
+	map<string, string, string>::iterator key2 = emailmap->find(name);
+	if (key1 == namemap->end()&& key2 == emailmap->end ()){
 		cout << red << name << ": user name or email address is not existed!" << white<< endl;
 		return NAMEERROR;
 	}
 
-	if (key->second.c_str() != password){
+	if (key1->second.c_str() != password&&key2->second.c_str () != password){
 		cout << red << name << ": passwaord error" << white<< endl;
 		return PASSWORDERROR;
 	}

@@ -32,22 +32,23 @@ typedef enum//∆Â≈Ãµ„µƒ Ù–‘
 typedef std::vector<tCELL2> VECTORINT2;
 typedef std::vector<tCELL3> VECTORINT3;
 
-typedef struct
+class cChessboard
 {
-//public:
-//	cChessboard ();
-//	~cChessboard ();
+public:
 	VECTORINT3 move_record;
 	VECTORINT3 jie;
+	int pan[21][21] = {0};
+	int shadow[21][21] = {0};
 
-	int pan[19][19] = {0};
-	int shadow[19][19] = {0};
-
-	int length = 19;
-	int width = 19;
-
+	int lengthBegin = 1;
+	int widthBegin = 1;
+	int lengthEnd = 20;
+	int widthEnd = 20;
 	int move_count = 1;
-}cChessboard;
+
+	cChessboard ();
+	~cChessboard ();
+};
 
 
 int play(int row, int col, cChessboard* Chessboard);

@@ -100,7 +100,7 @@ function mousedownHandler(e) {
     var cxt = c.getContext("2d");
     cxt.beginPath();
     cxt.arc(x, y, 15, 0, 2 * Math.PI, false);
-    if (move_count % 2 == 1)
+    if (move_count % 2 ==0)
         cxt.fillStyle = "black";
     else
         cxt.fillStyle = "white";
@@ -150,7 +150,7 @@ function mousemoveHandler(e) {
 
     cxt.beginPath();
     cxt.arc(x, y, 10, 0, 2 * Math.PI, false);
-    if (move_count % 2 == 0)
+    if (move_count % 2 == 1)
         cxt.fillStyle = "black";
     else
         cxt.fillStyle = "white";

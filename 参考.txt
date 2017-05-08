@@ -12,6 +12,7 @@ v.push _ back(t);
 
 
 ------------------------------------------------------------------------------------
+http://ask.csdn.net/questions/246763
 http://www.th7.cn/Program/cp/201609/965664.shtml
 http://blog.csdn.net/mfcing/article/details/50118591
 http://www.cnblogs.com/wang7/archive/2012/04/27/2474138.html

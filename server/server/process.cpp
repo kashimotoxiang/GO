@@ -15,15 +15,28 @@ bool have_air(int row, int col, cChessboard* Chessboard);
 bool have_my_people(int row, int col, cChessboard* Chessboard);
 void stone_down(int row, int col, cChessboard* Chessboard);
 
-//cChessboard::cChessboard (){
-//	 pan = new int[19][19];
-//	 shadow = new int[19][19];
-//
-//}
-//cChessboard::~cChessboard (){
-//	delete pan;
-//	delete shadow;
-//}
+cChessboard::cChessboard (){
+	for (int i = 0; i<21; i++)
+		pan[0][i] = cBOUN;
+	for (int i = 0; i<21; i++)
+		pan[i][0] = cBOUN;
+	for (int i = 0; i<21; i++)
+		pan[20][i] = cBOUN;
+	for (int i = 0; i<21; i++)
+		pan[i][20] = cBOUN;
+
+	for (int i = 0; i<21; i++)
+		shadow[0][i] = cBOUN;
+	for (int i = 0; i<21; i++)
+		shadow[i][0] = cBOUN;
+	for (int i = 0; i<21; i++)
+		shadow[20][i] = cBOUN;
+	for (int i = 0; i<21; i++)
+		shadow[i][20] = cBOUN;
+
+}
+cChessboard::~cChessboard (){
+}
 
 
 int play(int row, int col, cChessboard* Chessboard){
@@ -131,7 +144,7 @@ bool can_eat(int row, int col, int color, VECTORINT2* dead_body, cChessboard* Ch
 	if (color == cWHI)
 		anti_color = cBLA;
 
-	if (row + 1 <= 19 - 1 && (*Chessboard).pan[row + 1][col] == anti_color){
+	if (row + 1 <= (*Chessboard).lengthEnd - 1 && (*Chessboard).pan[row + 1][col] == anti_color){
 		make_shadow(Chessboard);
 		(*Chessboard).shadow[row][col] = color;
 		flood_fill(row + 1, col, anti_color, Chessboard);
@@ -143,7 +156,7 @@ bool can_eat(int row, int col, int color, VECTORINT2* dead_body, cChessboard* Ch
 		}
 
 	}
-	if (row - 1 >= 0 && (*Chessboard).pan[row - 1][col] == anti_color){
+	if (row - 1 >= (*Chessboard).lengthBegin && (*Chessboard).pan[row - 1][col] == anti_color){
 		make_shadow(Chessboard);
 		(*Chessboard).shadow[row][col] = color;
 		flood_fill(row - 1, col, anti_color, Chessboard);
@@ -153,7 +166,7 @@ bool can_eat(int row, int col, int color, VECTORINT2* dead_body, cChessboard* Ch
 		}
 
 	}
-	if (col + 1 <= 19 - 1 && (*Chessboard).pan[row][col + 1] == anti_color){
+	if (col + 1 <= (*Chessboard).widthEnd - 1 && (*Chessboard).pan[row][col + 1] == anti_color){
 		make_shadow(Chessboard);
 		(*Chessboard).shadow[row][col] = color;
 		flood_fill(row, col + 1, anti_color, Chessboard);
@@ -163,7 +176,7 @@ bool can_eat(int row, int col, int color, VECTORINT2* dead_body, cChessboard* Ch
 		}
 
 	}
-	if (col - 1 >= 0 && (*Chessboard).pan[row][col - 1] == anti_color){
+	if (col - 1 >= (*Chessboard).widthBegin && (*Chessboard).pan[row][col - 1] == anti_color){
 		make_shadow(Chessboard);
 		(*Chessboard).shadow[row][col] = color;
 		flood_fill(row, col - 1, anti_color, Chessboard);
@@ -178,8 +191,8 @@ bool can_eat(int row, int col, int color, VECTORINT2* dead_body, cChessboard* Ch
 
 bool record_dead_body(VECTORINT2* db, cChessboard* Chessboard){
 	int ret = false;
-	for (int row = 0; row < (*Chessboard).width; row++){
-		for (int col = 0; col < (*Chessboard).length; col++){
+	for (int row = (*Chessboard).widthBegin; row < (*Chessboard).widthEnd; row++){
+		for (int col = (*Chessboard).lengthBegin; col < (*Chessboard).lengthEnd; col++){
 			if ((*Chessboard).shadow[row][col] == cFILL){
 				(*db).push_back({row, col});
 				ret = true; // it's true have dead body
@@ -202,8 +215,8 @@ void clean_dead_body(VECTORINT2* db, cChessboard* Chessboard){
 
 /* 填充的区域周围是否有空 */
 bool fill_block_have_air(int row, int col, int color, cChessboard* Chessboard){
-	for (int i = 0; i < (*Chessboard).length; i++){
-		for (int j = 0; j < (*Chessboard).width; j++){
+	for (int i = (*Chessboard).lengthBegin; i < (*Chessboard).lengthEnd; i++){
+		for (int j = (*Chessboard).widthBegin; j < (*Chessboard).widthEnd; j++){
 			if (i != row || j != col){
 				if ((*Chessboard).shadow[i][j] == cFILL && (*Chessboard).pan[i][j] != color){
 					return true; // 此块有空，可下
@@ -217,8 +230,8 @@ bool fill_block_have_air(int row, int col, int color, cChessboard* Chessboard){
 
 /* 提吃判断专用 */
 bool anti_fill_block_have_air(int color, cChessboard* Chessboard){
-	for (int i = 0; i < (*Chessboard).length; i++){
-		for (int j = 0; j < (*Chessboard).width; j++){
+	for (int i = (*Chessboard).lengthBegin; i < (*Chessboard).lengthEnd; i++){
+		for (int j = (*Chessboard).widthBegin; j < (*Chessboard).widthEnd; j++){
 			if ((*Chessboard).shadow[i][j] == cFILL && (*Chessboard).pan[i][j] != color){
 				return true; // 活
 			}
@@ -230,16 +243,16 @@ bool anti_fill_block_have_air(int color, cChessboard* Chessboard){
 
 /* 将盘面做个影分身 */
 void make_shadow(cChessboard* Chessboard){
-	for (int i = 0; i < (*Chessboard).length; i++){
-		for (int j = 0; j < (*Chessboard).width; j++){
+	for (int i = (*Chessboard).lengthBegin; i < (*Chessboard).lengthEnd; i++){
+		for (int j = (*Chessboard).widthBegin; j < (*Chessboard).widthEnd; j++){
 			(*Chessboard).shadow[i][j] = (*Chessboard).pan[i][j];
 		}
 	}
 }
 
 void shadow_to_pan(cChessboard* Chessboard){
-	for (int i = 0; i < (*Chessboard).length; i++){
-		for (int j = 0; j < (*Chessboard).width; j++){
+	for (int i = (*Chessboard).lengthBegin; i < (*Chessboard).lengthEnd; i++){
+		for (int j = (*Chessboard).widthBegin; j < (*Chessboard).widthEnd; j++){
 			(*Chessboard).pan[i][j] = (*Chessboard).shadow[i][j];
 		}
 	}
@@ -247,7 +260,10 @@ void shadow_to_pan(cChessboard* Chessboard){
 
 /* 泛洪填充，只操作影分身 */
 void flood_fill(int row, int col, int color, cChessboard* Chessboard){ // color 为当前要填充的颜色
-	if (row < 0 || row > 19 - 1 || col < 0 || col > 19 - 1)
+	if (row < (*Chessboard).lengthBegin 
+		|| row > (*Chessboard).lengthEnd - 1 
+		|| col < (*Chessboard).widthBegin 
+		|| col > (*Chessboard).widthEnd - 1)
 		return;
 
 	int anti_color = cWHI;
@@ -265,7 +281,7 @@ void flood_fill(int row, int col, int color, cChessboard* Chessboard){ // color 
 
 /* 坐标周围4交叉点有气否？ */
 bool have_air (int row, int col, cChessboard* Chessboard) {
-	if (row > 0 && row < 19 - 1 && col > 0 && row < 19 - 1) { //非边角 1->17(0->18)
+
 		if ((*Chessboard).pan[row + 1][col] !=cEmp &&
 			(*Chessboard).pan[row - 1][col] !=cEmp &&
 			(*Chessboard).pan[row][col + 1] !=cEmp &&
@@ -277,250 +293,29 @@ bool have_air (int row, int col, cChessboard* Chessboard) {
 			//alert("have air");
 			return true;
 		}
-	}
-	else if (row ==  0 && col > 0 && col < 19 - 1) { // 边
-		if ((*Chessboard).pan[row + 1][col] !=cEmp &&
-			(*Chessboard).pan[row][col + 1] !=cEmp &&
-			(*Chessboard).pan[row][col - 1] !=cEmp) {
-			//alert("have no air");
-			return false;
-		}
-		else {
-			//alert("have air");
-			return true;
-		}
-	}
-	else if (row ==  19 - 1 && col > 0 && col < 19 - 1) {
-		if ((*Chessboard).pan[row - 1][col] !=cEmp &&
-			(*Chessboard).pan[row][col + 1] !=cEmp &&
-			(*Chessboard).pan[row][col - 1] !=cEmp) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-	else if (col ==  0 && row > 0 && row < 19 - 1) {
-		if ((*Chessboard).pan[row][col + 1] !=cEmp &&
-			(*Chessboard).pan[row + 1][col] !=cEmp &&
-			(*Chessboard).pan[row - 1][col] !=cEmp) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-	else if (col ==  19 - 1 && row > 0 && row < 19 - 1) {
-		if ((*Chessboard).pan[row][col - 1] !=cEmp &&
-			(*Chessboard).pan[row + 1][col] !=cEmp &&
-			(*Chessboard).pan[row - 1][col] !=cEmp) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-	else if (row ==  0 && col ==  0) { // 角
-		if ((*Chessboard).pan[row][col + 1] !=cEmp &&
-			(*Chessboard).pan[row + 1][col] !=cEmp) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-	else if (row ==  0 && col ==  19 - 1) {
-		if ((*Chessboard).pan[row][col - 1] !=cEmp &&
-			(*Chessboard).pan[row + 1][col] !=cEmp) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-	else if (row ==  19 - 1 && col ==  0) {
-		if ((*Chessboard).pan[row][col + 1] !=cEmp &&
-			(*Chessboard).pan[row - 1][col] !=cEmp) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-	else if (row ==  19 - 1 && col ==  19 - 1) {
-		if ((*Chessboard).pan[row][col - 1] !=cEmp &&
-			(*Chessboard).pan[row - 1][col] !=cEmp) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-
-
-
 
 }
 
 /* 坐标周围是否有我方的棋子 */
 bool have_my_people (int row, int col, cChessboard* Chessboard) { //FIXME 边角没有处理呢
-	if (row > 0 && row < 19 - 1 && col > 0 && row < 19 - 1) { //非边角 1->17(0->18)
 		if ((*Chessboard).move_count % 2 ==  0) { //未落子前是白
-			if ((*Chessboard).pan[row + 1][col] ==  1 ||
-				(*Chessboard).pan[row - 1][col] ==  1 ||
-				(*Chessboard).pan[row][col + 1] ==  1 ||
-				(*Chessboard).pan[row][col - 1] ==  1) {
+			if ((*Chessboard).pan[row + 1][col] ==  cBLA ||
+				(*Chessboard).pan[row - 1][col] ==  cBLA ||
+				(*Chessboard).pan[row][col + 1] ==  cBLA ||
+				(*Chessboard).pan[row][col - 1] ==  cBLA) {
 				//alert("have my people");
 				return true;
 			}
 		}
 		else {
-			if ((*Chessboard).pan[row + 1][col] ==  2 ||
-				(*Chessboard).pan[row - 1][col] ==  2 ||
-				(*Chessboard).pan[row][col + 1] ==  2 ||
-				(*Chessboard).pan[row][col - 1] ==  2) {
+			if ((*Chessboard).pan[row + 1][col] ==  cWHI ||
+				(*Chessboard).pan[row - 1][col] ==  cWHI ||
+				(*Chessboard).pan[row][col + 1] ==  cWHI ||
+				(*Chessboard).pan[row][col - 1] ==  cWHI) {
 				//alert("have my people");
 				return true;
 			}
 		}
-	}
-	else if (row ==  0 && col > 0 && col < 19 - 1) { // 边
-		if ((*Chessboard).move_count % 2 ==  0) { //未落子前是白
-			if ((*Chessboard).pan[row + 1][col] ==  1 ||
-				(*Chessboard).pan[row][col + 1] ==  1 ||
-				(*Chessboard).pan[row][col - 1] ==  1) {
-				//alert("have my people");
-				return true;
-			}
-		}
-		else {
-			if ((*Chessboard).pan[row + 1][col] ==  2 ||
-				(*Chessboard).pan[row][col + 1] ==  2 ||
-				(*Chessboard).pan[row][col - 1] ==  2) {
-				//alert("have my people");
-				return true;
-			}
-		}
-	}
-	else if (row ==  19 - 1 && col > 0 && col < 19 - 1) { // 边
-		if ((*Chessboard).move_count % 2 ==  0) { //未落子前是白
-			if ((*Chessboard).pan[row - 1][col] ==  1 ||
-				(*Chessboard).pan[row][col + 1] ==  1 ||
-				(*Chessboard).pan[row][col - 1] ==  1) {
-				//alert("have my people");
-				return true;
-			}
-		}
-		else {
-			if ((*Chessboard).pan[row - 1][col] ==  2 ||
-				(*Chessboard).pan[row][col + 1] ==  2 ||
-				(*Chessboard).pan[row][col - 1] ==  2) {
-				//alert("have my people");
-				return true;
-			}
-		}
-	}
-	else if (col ==  19 - 1 && row > 0 && row < 19 - 1) {
-		if ((*Chessboard).move_count % 2 ==  0) { //未落子前是白
-			if ((*Chessboard).pan[row + 1][col] ==  1 ||
-				(*Chessboard).pan[row - 1][col] ==  1 ||
-				(*Chessboard).pan[row][col - 1] ==  1) {
-				//alert("have my people");
-				return true;
-			}
-		}
-		else {
-			if ((*Chessboard).pan[row + 1][col] ==  2 ||
-				(*Chessboard).pan[row - 1][col] ==  2 ||
-				(*Chessboard).pan[row][col - 1] ==  2) {
-				//alert("have my people");
-				return true;
-			}
-		}
-	}
-	else if (col ==  0 && row > 0 && row < 19 - 1) {
-		if ((*Chessboard).move_count % 2 ==  0) { //未落子前是白
-			if ((*Chessboard).pan[row + 1][col] ==  1 ||
-				(*Chessboard).pan[row - 1][col] ==  1 ||
-				(*Chessboard).pan[row][col + 1] ==  1) {
-				//alert("have my people");
-				return true;
-			}
-		}
-		else {
-			if ((*Chessboard).pan[row + 1][col] ==  2 ||
-				(*Chessboard).pan[row - 1][col] ==  2 ||
-				(*Chessboard).pan[row][col + 1] ==  2) {
-				//alert("have my people");
-				return true;
-			}
-		}
-	}
-	else if (row ==  0 && col ==  0) { // 角
-		if ((*Chessboard).move_count % 2 ==  0) { //未落子前是白
-			if ((*Chessboard).pan[row + 1][col] ==  1 ||
-				(*Chessboard).pan[row][col + 1] ==  1) {
-				//alert("have my people");
-				return true;
-			}
-		}
-		else {
-			if ((*Chessboard).pan[row + 1][col] ==  2 ||
-				(*Chessboard).pan[row][col + 1] ==  2) {
-				//alert("have my people");
-				return true;
-			}
-		}
-	}
-	else if (row ==  0 && col ==  19 - 1) { // 角
-		if ((*Chessboard).move_count % 2 ==  0) { //未落子前是白
-			if ((*Chessboard).pan[row + 1][col] ==  1 ||
-				(*Chessboard).pan[row][col - 1] ==  1) {
-				//alert("have my people");
-				return true;
-			}
-		}
-		else {
-			if ((*Chessboard).pan[row + 1][col] ==  2 ||
-				(*Chessboard).pan[row][col - 1] ==  2) {
-				//alert("have my people");
-				return true;
-			}
-		}
-	}
-	else if (row ==  19 - 1 && col ==  0) { // 角
-		if ((*Chessboard).move_count % 2 ==  0) { //未落子前是白
-			if ((*Chessboard).pan[row - 1][col] ==  1 ||
-				(*Chessboard).pan[row][col + 1] ==  1) {
-				//alert("have my people");
-				return true;
-			}
-		}
-		else {
-			if ((*Chessboard).pan[row - 1][col] ==  2 ||
-				(*Chessboard).pan[row][col + 1] ==  2) {
-				//alert("have my people");
-				return true;
-			}
-		}
-	}
-	else if (row ==  19 - 1 && col ==  19 - 1) { // 角
-		if ((*Chessboard).move_count % 2 ==  0) { //未落子前是白
-			if ((*Chessboard).pan[row - 1][col] ==  1 ||
-				(*Chessboard).pan[row][col - 1] ==  1) {
-				//alert("have my people");
-				return true;
-			}
-		}
-		else {
-			if ((*Chessboard).pan[row - 1][col] ==  2 ||
-				(*Chessboard).pan[row][col - 1] ==  2) {
-				//alert("have my people");
-				return true;
-			}
-		}
-	}
-
 	return false;
 }
 
