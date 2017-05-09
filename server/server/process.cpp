@@ -37,12 +37,6 @@ cChessboard::~cChessboard () {
 }
 
 int play (int row, int col, cChessboard* Chessboard) {
-	bool can_down = false; // 是否可落子
-	tCOLOR color = cWHI; // 白 //棋子颜色
-	if ((*Chessboard).move_count % 2 == 0) { // 未落子前是白
-		color = cBLA;
-	}
-
 	VECTORINT2 dead_body;
 	can_eat (row, col, cWHI, &dead_body, Chessboard);
 	can_eat (row, col, cBLA, &dead_body, Chessboard);
