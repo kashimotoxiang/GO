@@ -19,7 +19,6 @@ typedef struct
 	int pan[19][19];
 }mMessage;
 
-//·şÎñÆ÷Àà
 class Server
 {
 public:
