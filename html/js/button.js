@@ -1,3 +1,5 @@
+var mode=1;
+
 function bLogin() {
   var i_name = document.getElementById('username1');
   var i_password = document.getElementById('password1');
@@ -9,6 +11,8 @@ function bLogin() {
     "key": "login",
     "name": name,
     "password": password,
+    "mode": mode,
+
   });
   sendMessage(myJSON);
 }
@@ -28,11 +32,12 @@ function bSignup() {
     "name": name,
     "password": password,
     "email": email,
+    "mode": mode,
   });
   sendMessage(myJSON);
 }
 
 
 function sMode() {
-  
+
 }

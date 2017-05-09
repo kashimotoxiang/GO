@@ -7,14 +7,14 @@ function Button1() {
         start_button.onclick = function () {
             if (start_flag) {
                 start_button.innerHTML = "开始游戏";
-                var myJSON = JSON.stringify({ "key": "stop", "name": g_name });
+                var myJSON = JSON.stringify({ "key": "stop", "name": g_name, "mode": mode });
                 sendMessage(myJSON);
                 timerShut();
                 // websocketShutdown();//停止
                 start_flag = false;
             } else {
                 start_button.innerHTML = "终止游戏";
-                var myJSON = JSON.stringify({ "key": "start", "name": g_name });
+                var myJSON = JSON.stringify({ "key": "start", "name": g_name, "mode": mode });
                 sendMessage(myJSON);
                 timerBegin();
                 // websocketInit();//启动

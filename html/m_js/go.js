@@ -7,6 +7,7 @@ var pan = new Array(
 
 //绘制棋盘
 var g_name;
+var mode=1;
 function grid(cxt) {
     // the first point is (30, 30)
     for (var i = 0; i < 19; i++) {
@@ -79,8 +80,7 @@ function mousedownHandler(e) {
         alert("棋子越界错误");
         return;
     }
-    // 处理已有棋子在此
-    var point;
+ 
     if (pan.length === 19)//因为回传过来变成一维数组了
         point = pan[row][col];
     else
@@ -91,6 +91,20 @@ function mousedownHandler(e) {
         return;
     }
 
+
+    // 处理已有棋子在此
+    var point;
+    if (start_flag !== true) {
+        alert("游戏尚未开始！");
+        return;
+    }
+
+    if (connect_flag !== true) {
+        alert("连接失败！");
+        return;
+    }
+    connect_flag = false;
+    
     sendServer(row, col, move_count);
     move_count++;
     $("#step").val("步数：" + move_count);
@@ -100,7 +114,7 @@ function mousedownHandler(e) {
     var cxt = c.getContext("2d");
     cxt.beginPath();
     cxt.arc(x, y, 15, 0, 2 * Math.PI, false);
-    if (move_count % 2 ==0)
+    if (move_count % 2 == 0)
         cxt.fillStyle = "black";
     else
         cxt.fillStyle = "white";

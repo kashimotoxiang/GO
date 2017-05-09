@@ -1,5 +1,5 @@
 var ws;
-var START_FLAG = 0;
+var connect_flag = false;
 var myJSON;
 //num2str调整格式
 function num2strfix(num, length) {
@@ -11,28 +11,29 @@ function websocketInit() {
     ws.binaryType = "arraybuffer";//set the type of received data:array, the default type is bolb
     ws.onopen = function (event) {
         console.log("Connection Start");
-        START_FLAG = 1;
     };
 
     ws.onmessage = function (event) {
+        connect_flag = true;
         if (event.data instanceof ArrayBuffer) {//验证格式是否正确
             var rArray = new Int32Array(event.data); //Int32Array cannot be changed if created
             console.log(rArray);
             //验证广播first name
             var i_name = rArray.subarray(0, 29);
             master = nameExtract(i_name);
+            var _pan = rArray.subarray(30);
 
-            //提取second name
-            var i_name = rArray.subarray(30, 60);
-            rival = nameExtract(i_name);
+            // //提取second name
+            // var i_name = rArray.subarray(30, 60);
+            // rival = nameExtract(i_name);
 
-            // var rival = document.getElementById("rival");
-            if (rival !== "")
-                $("#rival").val("您的对手: " + rival);
-            else
-                $("#rival").val("单机");
+            // // var rival = document.getElementById("rival");
+            // if (rival !== "")
+            //     $("#rival").val("您的对手: " + rival);
+            // else
+            //     $("#rival").val("单机");
+            // var _pan = rArray.subarray(60);
 
-            var _pan = rArray.subarray(60);
 
             if (master === g_name) {
                 pan = _pan;
@@ -51,12 +52,12 @@ function websocketInit() {
 
     ws.onclose = function (event) {
         console.log("Connection Stopped");
-        START_FLAG = 0;
+        connect_flag = false;
     }
 }
 
 function websocketShutdown() {
-    var myJSON = JSON.stringify({ "key": "stop", "name": g_name });
+    var myJSON = JSON.stringify({ "key": "stop", "name": g_name, "mode": mode });
     sendMessage(myJSON);
     ws.close();
 }
@@ -70,7 +71,7 @@ function sendServer(x, y, move_count) {
     xs = num2strfix(x, 2);
     ys = num2strfix(y, 2);
 
-    var myJSON = JSON.stringify({ "key": "play", "name": g_name, "row": xs, "col": ys });
+    var myJSON = JSON.stringify({ "key": "play", "name": g_name, "mode": mode, "row": xs, "col": ys });
     sendMessage(myJSON);
 }
 

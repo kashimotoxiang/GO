@@ -110,7 +110,6 @@ void on_message (server* s, websocketpp::connection_hdl hdl, message_ptr msg) {
 			delete p;
 		else
 			cout << yellow << "stop:room is empty!" << white << endl;
-
 	}
 
 	//登录
