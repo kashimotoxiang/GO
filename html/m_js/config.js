@@ -36,7 +36,7 @@ function getCookie(cname) {
 
 function background() {
     g_name = getCookie("g_name");
-    var welcome = document.getElementById("welcome");
+    // var welcome = document.getElementById("welcome");
     $("#welcome").val("欢迎 " + g_name);
 }
 

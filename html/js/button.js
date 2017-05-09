@@ -32,3 +32,7 @@ function bSignup() {
   sendMessage(myJSON);
 }
 
+
+function sMode() {
+  
+}

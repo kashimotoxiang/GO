@@ -18,51 +18,52 @@ using namespace boost::property_tree;
 using websocketpp::lib::bind;
 
 //服务器构造
-Server::Server(){
+Server::Server () {
 	onlineNum = 1;
-	mode = one;
+	//mode = one;
 	ChessBoardMap = new map<string, cChessboard*>;
-	cout << blue << "Sever generation" << white<< endl;
+	cout << blue << "Sever generation" << white << endl;
 }
 
-Server::~Server(){
+Server::~Server () {
 	delete ChessBoardMap;
-	cout << blue << "Server degeneration" << white<< endl;
+	cout << blue << "Server degeneration" << white << endl;
 }
 
 //websocket设置
 // pull out the type of messages sent by our config
-void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
+void on_message (server* s, websocketpp::connection_hdl hdl, message_ptr msg) {
 	string status = "";//状态控制
-	string received = msg->get_payload();
-	cout << endl << green << "recieve:" << received << white<< endl << endl;
+	string received = msg->get_payload ();
+	cout << endl << green << "recieve:" << received << white << endl << endl;
 	//从string中解析json串  
 	istringstream iss;
-	iss.str(received);
+	iss.str (received);
 	ptree item;
-	try{
-		read_json(iss, item);
+	try {
+		read_json (iss, item);
 	}
-	catch (ptree_error){
-		cout << red << "all:failed to read json" << white<< endl;
+	catch (ptree_error) {
+		cout << red << "all:failed to read json" << white << endl;
 		return;
 	}
 
-	//获取名称
-	string name;
-	try{
-		name = item.get<string>("name");
+	//获取名称 模式
+	string name, mode;
+	try {
+		name = item.get<string> ("name");
+		mode = item.get<string> ("mode");
 	}
-	catch (ptree_error){
-		cout << red << "play:failed to read room name" << white<< endl;
+	catch (ptree_error) {
+		cout << red << "play:failed to read room name or mode" << white << endl;
 		return;
 	}
 
 	//读取 id
-	string key = item.get<string>("key");
+	string key = item.get<string> ("key");
 
 	//分类
-	if (key == "start"){
+	if (key == "start") {
 		//创建房间
 		cChessboard* p = new cChessboard ();
 		//压入房间名和房间指针
@@ -75,14 +76,14 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 
 			//name转换
 			int i = 0;
-			for (; i<name.length (); i++)
+			for (; i < name.length (); i++)
 				mp.name[i] = name[i];
-			for (; i<sizeof (mp.name) / sizeof (mp.name[0]); i++)
+			for (; i < sizeof (mp.name) / sizeof (mp.name[0]); i++)
 				mp.name[i] = -1;
 
 			//棋盘转换
-			for (int i = (*p).lengthBegin; i<(*p).lengthEnd; i++)
-				for (int j = (*p).widthBegin; j<(*p).widthEnd; j++)
+			for (int i = (*p).lengthBegin; i < (*p).lengthEnd; i++)
+				for (int j = (*p).widthBegin; j < (*p).widthEnd; j++)
 					mp.pan[i - (*p).lengthBegin][j - (*p).widthBegin] = p->pan[i][j];
 
 			//发送消息
@@ -94,11 +95,11 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 
 	}
 	//停止
-	else if (key == "stop"){
+	else if (key == "stop") {
 		//获取房间指针
-		map<string, cChessboard*>::iterator key = mServer.ChessBoardMap->find(name);
-		if (key == mServer.ChessBoardMap->end()){
-			cout << yellow << "stop:room is not exist!" << white<< endl;
+		map<string, cChessboard*>::iterator key = mServer.ChessBoardMap->find (name);
+		if (key == mServer.ChessBoardMap->end ()) {
+			cout << yellow << "stop:room is not exist!" << white << endl;
 			return;
 		}
 
@@ -108,210 +109,143 @@ void on_message(server* s, websocketpp::connection_hdl hdl, message_ptr msg){
 		if (p != nullptr)
 			delete p;
 		else
-			cout << yellow << "stop:room is empty!" << white<< endl;
+			cout << yellow << "stop:room is empty!" << white << endl;
 
 	}
-	//模式切换
-	//else if (key == "mode"){
-	//  int _mode;
-	//  try{
-	//    _mode = item.get<int>("mode");
-	//  }
-	//  catch (ptree_error& e){
-	//    cout  <<  "mode解析失败" << white<< endl;
-	//    return;
-	//  }
-	//  switch (_mode){
-	//  case 1: mode = one;
-	//    break;
-	//  case 2: mode = two;
-	//    break;
-	//  default: break;
-	//  }
-	//}
 
 	//登录
-	else if (key == "login"){
-		//if (mode == one && onlineNum >= 1 || mode == two && onlineNum >= 2)//人数溢出
-		//{
-		//  WEBSend ("OVERFLOW");
-		//  return;
-		//}
+	else if (key == "login") {
 		string password;
-		try{
-			password = item.get<string>("password");
+		try {
+			password = item.get<string> ("password");
 		}
-		catch (ptree_error){
-			cout << red << "login:failed to read json" << white<< endl;
+		catch (ptree_error) {
+			cout << red << "login:failed to read json" << white << endl;
 			return;
 		}
 
 		int flag = myRegister.login (name, password);
-		switch (flag){
+		switch (flag) {
 		case OK: WEBSend ("LOGINOK");
 			break;
 		case NAMEERROR: WEBSend ("NAMEERROR");
 			break;
 		case PASSWORDERROR: WEBSend ("PASSWORDERROR");
 			break;
-		default: ;
+		default:;
 		}
-
-		//if(flag== OK){
-		//	//创建房间
-		//	cChessboard* p = new cChessboard ();
-		//	//压入房间名和房间指针
-		//	mServer.ChessBoardMap->insert (make_pair (name, p));
-		//}
-
 	}
 
 	//注册
-	else if (key == "signup"){
+	else if (key == "signup") {
 		string  password, email;
-		try{
-			password = item.get<string>("password");
-			email = item.get<string>("email");
+		try {
+			password = item.get<string> ("password");
+			email = item.get<string> ("email");
 		}
-		catch (ptree_error){
-			cout << red << "signup:failed to read json" << white<< endl;
+		catch (ptree_error) {
+			cout << red << "signup:failed to read json" << white << endl;
 			return;
 		}
 
-		if (name == "" || password == "" || email == ""){
+		if (name == "" || password == "" || email == "") {
 			WEBSend ("PARAERROR");
-			return ;
-		}			
+			return;
+		}
 
-		switch (myRegister.signup(name, password, email)){
+		switch (myRegister.signup (name, password, email)) {
 		case OK: WEBSend ("SIGNUPOK");
 			break;
 		case NAMEEXIST: WEBSend ("NAMEEXIST");
 			break;
 		case EMAILEXIST: WEBSend ("EMAILEXIST");
 			break;
-		default: ;
+		default:;
 		}
 	}
 
 	//游戏处理
-	else if (key == "play"){
+	else if (key == "play") {
 		//获取房间指针
-		map<string, cChessboard*>::iterator key = mServer.ChessBoardMap->find(name);
-		if (key == mServer.ChessBoardMap->end()){
-			cout << yellow << "play:room is not exist!" << white<< endl;
+		map<string, cChessboard*>::iterator key = mServer.ChessBoardMap->find (name);
+		if (key == mServer.ChessBoardMap->end ()) {
+			cout << yellow << "play:room is not exist!" << white << endl;
 			return;
-
 		}
+
 		cChessboard* Chessboard = key->second;
 
-		//单机版
-		if (mServer.mode == one && mServer.onlineNum == 1){
-			if (Chessboard != nullptr){//要有棋盘
-				int row, col;
-				try{
-					row = item.get<int>("row");
-					col = item.get<int>("col");
-				}
-				catch (ptree_error){
-					cout << red << "play:failed to read json" << white<< endl;
-					return;
-				}
-				//棋盘处理
-				play(row+1, col+1, Chessboard);
-				//发送整个棋盘
-				try{
-					//创建消息对象
-					mMessage p;
-
-					//name转换
-					int i = 0;
-					for (;i<name.length();i++)
-					  p.name[i] = name[i];
-					for(; i<sizeof (p.name) / sizeof (p.name[0]); i++)
-						p.name[i] = -1;
-
-					//棋盘转换
-					for(int i= (*Chessboard).lengthBegin;i<(*Chessboard).lengthEnd;i++)
-						for(int j= (*Chessboard).widthBegin;j<(*Chessboard).widthEnd;j++)
-							p.pan[i- (*Chessboard).lengthBegin][j- (*Chessboard).widthBegin] = Chessboard->pan[i][j];
-
-					//发送消息
-					s->send(hdl, &p, sizeof (p), websocketpp::frame::opcode::BINARY);
-				}
-				catch (const error_code& e){
-					cout << red << "Sending message failed because: " << e << "(" << e.message() << ")" << white<< endl;
-				}
+		if (Chessboard != nullptr) {//要有棋盘
+			int row, col;
+			try {
+				row = item.get<int> ("row");
+				col = item.get<int> ("col");
 			}
-			else{
-				// 没有棋盘
-				WEBSend ("noChessboard");
+			catch (ptree_error) {
+				cout << red << "play:failed to read json" << white << endl;
+				return;
+			}
+			//棋盘处理
+			play (row + 1, col + 1, Chessboard);
+			//发送整个棋盘
+			try {
+				//创建消息对象
+				mMessage p;
+
+				//name转换
+				int i = 0;
+				for (; i < name.length (); i++)
+					p.name[i] = name[i];
+				for (; i < sizeof (p.name) / sizeof (p.name[0]); i++)
+					p.name[i] = -1;
+
+				//棋盘转换
+				for (int i = (*Chessboard).lengthBegin; i < (*Chessboard).lengthEnd; i++)
+					for (int j = (*Chessboard).widthBegin; j < (*Chessboard).widthEnd; j++)
+						p.pan[i - (*Chessboard).lengthBegin][j - (*Chessboard).widthBegin] = Chessboard->pan[i][j];
+
+				//发送消息
+				s->send (hdl, &p, sizeof (p), websocketpp::frame::opcode::BINARY);
+			}
+			catch (const error_code& e) {
+				cout << red << "Sending message failed because: " << e << "(" << e.message () << ")" << white << endl;
 			}
 		}
-		////双人
-		//else if (mode == two && onlineNum == 2)
-		//{
-		//  if (Chessboard != nullptr){//要有棋盘
-		//    int row, col;
-		//    try{
-		//      row = item.get<int>("row");
-		//      col = item.get<int>("col");
-		//    }
-		//    catch (ptree_error& e){
-		//      cout  <<  "play解析失败" << white<< endl;
-		//      return;
-		//    }
-		//    //棋盘处理
-		//    play(row, col);
-		//    //发送整个棋盘
-		//    try{
-		//      s->send(hdl, Chessboard->pan, sizeof (Chessboard->pan), websocketpp::frame::opcode::BINARY);
-		//    }
-		//    catch (const error_code& e){
-		//      cout  <<  "Sending message failed because: "  <<  e  <<  "("  <<  e.message()  <<  ")"  <<  endl;
-		//    }
-		//  }
-		//  else{
-		//    // 没有棋盘
-		//    WEBSend ("noChessboard");
-		//  }
-		//}
-		//else {
-		//  WEBSend ("PeopleNumError");
-		//  return;
-		//}
+		else {
+			// 没有棋盘
+			WEBSend ("noChessboard");
+		}
 	}
-
 }
 
-void WebSocketInit(){
+void WebSocketInit () {
 	// Create a server endpoint
 	server echo_server;
 
-	try{
+	try {
 		// Set logging settings
-		echo_server.set_access_channels(websocketpp::log::alevel::all);
-		echo_server.clear_access_channels(websocketpp::log::alevel::frame_payload);
+		echo_server.set_access_channels (websocketpp::log::alevel::all);
+		echo_server.clear_access_channels (websocketpp::log::alevel::frame_payload);
 
 		// Initialize Asio
-		echo_server.init_asio();
+		echo_server.init_asio ();
 
 		// Register our message handler
-		echo_server.set_message_handler(bind(&on_message, &echo_server, placeholders::_1, placeholders::_2));
+		echo_server.set_message_handler (bind (&on_message, &echo_server, placeholders::_1, placeholders::_2));
 
 		// Listen on port 8181
-		echo_server.listen(8181);
+		echo_server.listen (8181);
 
 		// Start the server accept loop
-		echo_server.start_accept();
+		echo_server.start_accept ();
 
 		// Start the ASIO io_service run loop
-		echo_server.run();
+		echo_server.run ();
 	}
-	catch (websocketpp::exception const& e){
-		cout << white << e.what() << white<< endl;
+	catch (websocketpp::exception const& e) {
+		cout << white << e.what () << white << endl;
 	}
-	catch (...){
-		cout << white << "other exception" << white<< endl;
+	catch (...) {
+		cout << white << "other exception" << white << endl;
 	}
 }

@@ -24,7 +24,7 @@ class Server
 {
 public:
 	 int onlineNum;//在线人数
-	 int mode;//单机&双机
+	 //int mode;//单机&双机
 	 map<string, cChessboard*> *ChessBoardMap = nullptr;
 
 	 Server ();

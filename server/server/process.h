@@ -46,6 +46,10 @@ public:
 	int widthEnd = 20;
 	int move_count = 1;
 
+	std::string name1 = "";
+	std::string name2 = "";
+	bool isSingle = false;
+
 	cChessboard ();
 	~cChessboard ();
 };

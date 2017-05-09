@@ -18,22 +18,23 @@ function websocketInit() {
         if (event.data instanceof ArrayBuffer) {//验证格式是否正确
             var rArray = new Int32Array(event.data); //Int32Array cannot be changed if created
             console.log(rArray);
+            //验证广播first name
+            var i_name = rArray.subarray(0, 29);
+            master = nameExtract(i_name);
 
-            //验证广播名字
-            var i_name = rArray.subarray(0, 30);
-            var s_name = [];
+            //提取second name
+            var i_name = rArray.subarray(30, 60);
+            rival = nameExtract(i_name);
 
-            for (var i in i_name) {
-                if (i_name[i] !== -1) {
-                    var code = String.fromCharCode(i_name[i]);
-                    s_name.push(code);
-                }
-            }
-            s_name = s_name.join("");
+            // var rival = document.getElementById("rival");
+            if (rival !== "")
+                $("#rival").val("您的对手: " + rival);
+            else
+                $("#rival").val("单机");
 
-            var _pan = rArray.subarray(30);
+            var _pan = rArray.subarray(60);
 
-            if (s_name === g_name) {
+            if (master === g_name) {
                 pan = _pan;
                 showPan();
                 console.log("is me");
@@ -73,5 +74,16 @@ function sendServer(x, y, move_count) {
     sendMessage(myJSON);
 }
 
+function nameExtract(i_name) {
+    var master = [];
+    for (var i in i_name) {
+        if (i_name[i] !== -1) {
+            var code = String.fromCharCode(i_name[i]);
+            master.push(code);
+        }
+    }
+    master = master.join("");
+    return master;
+}
 
 addLoadEvent(websocketInit);
