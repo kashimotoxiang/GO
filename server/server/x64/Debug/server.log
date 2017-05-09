@@ -1,9 +1,23 @@
-﻿  server.cpp
+﻿  process.cpp
+c:\users\kashi\dropbox\02大学\大三（下）\软件设计\weiqi\server\server\process.cpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+c:\users\kashi\dropbox\02大学\大三（下）\软件设计\weiqi\server\server\process.cpp(104): warning C4805: “==”: 在操作中将类型“unsigned __int64”与类型“bool”混合不安全
+  正在生成代码...
+  正在编译...
+  main.cpp
+c:\websocketpp\websocketpp\frame.hpp(831): warning C4267: “=”: 从“size_t”转换到“uint32_t”，可能丢失数据
+  Unknown compiler version - please run the configure tests and report the results
+c:\websocketpp\websocketpp\common\md5.hpp(367): warning C4267: “+=”: 从“size_t”转换到“websocketpp::md5::md5_word_t”，可能丢失数据
+c:\websocketpp\websocketpp\sha1\sha1.hpp(176): warning C4267: “=”: 从“size_t”转换到“unsigned int”，可能丢失数据
+  正在生成代码...
+  正在编译...
+  server.cpp
 c:\users\kashi\dropbox\02大学\大三（下）\软件设计\weiqi\server\server\server.cpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 c:\websocketpp\websocketpp\frame.hpp(831): warning C4267: “=”: 从“size_t”转换到“uint32_t”，可能丢失数据
   Unknown compiler version - please run the configure tests and report the results
 c:\websocketpp\websocketpp\common\md5.hpp(367): warning C4267: “+=”: 从“size_t”转换到“websocketpp::md5::md5_word_t”，可能丢失数据
 c:\websocketpp\websocketpp\sha1\sha1.hpp(176): warning C4267: “=”: 从“size_t”转换到“unsigned int”，可能丢失数据
 c:\local\boost_1_62_0\boost\format\alt_sstream_impl.hpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  register.cpp
+  正在生成代码...
   server.vcxproj -> C:\Users\kashi\Dropbox\02大学\大三（下）\软件设计\WEIQI\server\x64\Debug\server.exe
   server.vcxproj -> C:\Users\kashi\Dropbox\02大学\大三（下）\软件设计\WEIQI\server\x64\Debug\server.pdb (Partial PDB)

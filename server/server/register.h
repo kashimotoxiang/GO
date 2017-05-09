@@ -15,6 +15,7 @@ typedef enum
 	PASSWORDERROR,
 } RegisterStatu;
 
+//×¢²áÀà
 class Register
 {
 private:

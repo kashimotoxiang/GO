@@ -74,16 +74,14 @@ int play(int row, int col, cChessboard* Chessboard){
 			VECTORINT2 dead_body;
 			int cret = can_eat(row, col, color, &dead_body, Chessboard);
 
-			// 劫争也应该在此处理，只在此处理？
+			// 劫争
 			if (cret){
 				if (!is_jie(row, col, &dead_body, Chessboard)){
 					clean_dead_body(&dead_body, Chessboard);
 					can_down = true;
 				}
 				else{
-					//alert("劫, 不能落子, 请至少隔一手棋！");
 					return sJIE;
-
 				}
 			}
 		}
@@ -114,7 +112,6 @@ bool is_jie(int row, int col, VECTORINT2* dead_body, cChessboard* Chessboard){ /
 			}
 		}
 		//加入记录表
-
 		tCELL3 p = {row, col, (*Chessboard).move_count};
 		(*Chessboard).jie.push_back(p); // 记录手数
 		return false;
@@ -122,12 +119,13 @@ bool is_jie(int row, int col, VECTORINT2* dead_body, cChessboard* Chessboard){ /
 	return false;
 }
 
+//吃子判断
 bool can_eat(int row, int col, int color, VECTORINT2* dead_body, cChessboard* Chessboard){ // color 是当前要落子的颜色
 	int ret = false;
 	int anti_color = cWHI;
 	if (color == cWHI)
 		anti_color = cBLA;
-
+	//上
 	if (row + 1 <= (*Chessboard).lengthEnd - 1 && (*Chessboard).pan[row + 1][col] == anti_color){
 		make_shadow(Chessboard);
 		(*Chessboard).shadow[row][col] = color;
@@ -194,7 +192,7 @@ void clean_dead_body(VECTORINT2* db, cChessboard* Chessboard){
 	}
 }
 
-/* 填充的区域周围是否有空 */
+// 填充的区域周围是否有空 
 bool fill_block_have_air(int row, int col, int color, cChessboard* Chessboard){
 	for (int i = (*Chessboard).lengthBegin; i < (*Chessboard).lengthEnd; i++){
 		for (int j = (*Chessboard).widthBegin; j < (*Chessboard).widthEnd; j++){
@@ -208,7 +206,7 @@ bool fill_block_have_air(int row, int col, int color, cChessboard* Chessboard){
 	return false;
 }
 
-/* 提吃判断专用 */
+// 判断能否吃子，即盘面是否一致 
 bool anti_fill_block_have_air(int color, cChessboard* Chessboard){
 	for (int i = (*Chessboard).lengthBegin; i < (*Chessboard).lengthEnd; i++){
 		for (int j = (*Chessboard).widthBegin; j < (*Chessboard).widthEnd; j++){
@@ -220,7 +218,7 @@ bool anti_fill_block_have_air(int color, cChessboard* Chessboard){
 	return false; //死
 }
 
-/* 将盘面做个影分身 */
+// 将盘面做个影分身 
 void make_shadow(cChessboard* Chessboard){
 	for (int i = (*Chessboard).lengthBegin; i < (*Chessboard).lengthEnd; i++){
 		for (int j = (*Chessboard).widthBegin; j < (*Chessboard).widthEnd; j++){
@@ -237,7 +235,7 @@ void shadow_to_pan(cChessboard* Chessboard){
 	}
 }
 
-/* 泛洪填充，只操作影分身 */
+// 泛洪填充 
 void flood_fill(int row, int col, int color, cChessboard* Chessboard){ // color 为当前要填充的颜色
 	if (row < (*Chessboard).lengthBegin 
 		|| row > (*Chessboard).lengthEnd - 1 
@@ -258,7 +256,7 @@ void flood_fill(int row, int col, int color, cChessboard* Chessboard){ // color 
 	}
 }
 
-/* 坐标周围4交叉点有气否？ */
+// 坐标周围4交叉点有气否？ 
 bool have_air (int row, int col, cChessboard* Chessboard) {
 
 		if ((*Chessboard).pan[row + 1][col] !=cEmp &&
@@ -273,7 +271,7 @@ bool have_air (int row, int col, cChessboard* Chessboard) {
 
 }
 
-/* 坐标周围是否有我方的棋子 */
+// 坐标周围是否有我方的棋子 
 bool have_my_people (int row, int col, cChessboard* Chessboard) { //FIXME 边角没有处理呢
 		if ((*Chessboard).move_count % 2 ==  0) { //未落子前是白
 			if ((*Chessboard).pan[row + 1][col] ==  cBLA ||
